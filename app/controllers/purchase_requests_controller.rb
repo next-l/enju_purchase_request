@@ -2,7 +2,7 @@ class PurchaseRequestsController < ApplicationController
   before_filter :store_location, :only => :index
   load_and_authorize_resource
   before_filter :get_user_if_nil
-  before_filter :check_user
+  before_filter :check_user, :only => :index
   before_filter :get_order_list
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -57,10 +57,6 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/1
   # GET /purchase_requests/1.xml
   def show
-    if @user
-      @purchase_request = @user.purchase_requests.find(params[:id])
-    end
-
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @purchase_request }
@@ -70,14 +66,11 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/new
   # GET /purchase_requests/new.xml
   def new
-    if !current_user.has_role?('Librarian')
-      unless current_user == @user
-        access_denied; return
-      end
-    end
-
     @purchase_request = PurchaseRequest.new(params[:purchase_request])
-    @purchase_request.user = @user if @user
+    if current_user.has_role?('Librarian')
+      @purchase_request.user = @user if @user
+    end
+    @purchase_request.user = current_user unless @purchase_request.user
     @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
 
     respond_to do |format|
@@ -126,7 +119,7 @@ class PurchaseRequestsController < ApplicationController
       if @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
-        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
+        format.html { redirect_to(@purchase_request) }
         format.xml  { head :ok }
       else
         format.html { render :action => "edit" }
