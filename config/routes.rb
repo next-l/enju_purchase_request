@@ -3,7 +3,7 @@ Rails.application.routes.draw do
     resource :order
   end
   resources :users do
-    resources :purchase_requests
+    resources :purchase_requests, :only => :index
   end
   resources :order_lists do
     resources :purchase_requests
