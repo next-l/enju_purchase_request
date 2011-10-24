@@ -2,6 +2,7 @@ class PurchaseRequestsController < ApplicationController
   before_filter :store_location, :only => :index
   load_and_authorize_resource
   before_filter :get_user_if_nil
+  before_filter :check_user
   before_filter :get_order_list
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -10,17 +11,6 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests
   # GET /purchase_requests.xml
   def index
-    unless current_user.has_role?('Librarian')
-      if @user
-        unless current_user == @user
-          access_denied; return
-        end
-      else
-        redirect_to user_purchase_requests_path(current_user)
-        return
-      end
-    end
-
     @count = {}
     if params[:format] == 'csv'
       per_page = 65534
@@ -160,6 +150,20 @@ class PurchaseRequestsController < ApplicationController
       else
         format.html { redirect_to(user_purchase_requests_url(@user)) }
         format.xml  { head :ok }
+      end
+    end
+  end
+
+  private
+  def check_user
+    unless current_user.has_role?('Librarian')
+      if @user
+        unless current_user == @user
+          access_denied; return
+        end
+      else
+        redirect_to user_purchase_requests_path(current_user)
+        return
       end
     end
   end
