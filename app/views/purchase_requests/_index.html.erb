@@ -47,7 +47,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_user_purchase_request_path(current_user)%></li>
+    <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_purchase_request_path %></li>
     <% if current_user.try(:has_role?, 'Librarian') %>
       <%- case params[:mode] when 'not_ordered' -%>
         <li><%= link_to t('purchase_request.ordered'), purchase_requests_path(:mode => 'ordered') -%></li>
@@ -78,6 +78,6 @@
 
 <h4><%= t('page.bookmarklet') -%></h4>
 <ul>
-  <li><a href="javascript:window.location.href='<%= new_user_purchase_request_url(current_user) -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"><%= t('purchase_request.add_to_purchase_request') -%></a></li>
+  <li><a href="javascript:window.location.href='<%= new_purchase_request_url -%>?purchase_request[url]='+encodeURIComponent(location.href)+'&purchase_request[title]='+encodeURIComponent(document.title);"><%= t('purchase_request.add_to_purchase_request') -%></a></li>
 </ul>
 </div>
