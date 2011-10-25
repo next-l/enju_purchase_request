@@ -9,7 +9,7 @@ class PurchaseRequestsController < ApplicationController
   after_filter :convert_charset, :only => :index
 
   # GET /purchase_requests
-  # GET /purchase_requests.xml
+  # GET /purchase_requests.json
   def index
     @count = {}
     if params[:format] == 'csv'
@@ -47,7 +47,7 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.xml  { render :xml => @purchase_requests }
+      format.json { render :json => @purchase_requests }
       format.rss  { render :layout => false }
       format.atom
       format.csv
@@ -55,16 +55,16 @@ class PurchaseRequestsController < ApplicationController
   end
 
   # GET /purchase_requests/1
-  # GET /purchase_requests/1.xml
+  # GET /purchase_requests/1.json
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.xml  { render :xml => @purchase_request }
+      format.json { render :json => @purchase_request }
     end
   end
 
   # GET /purchase_requests/new
-  # GET /purchase_requests/new.xml
+  # GET /purchase_requests/new.json
   def new
     @purchase_request = PurchaseRequest.new(params[:purchase_request])
     if current_user.has_role?('Librarian')
@@ -75,7 +75,7 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.xml  { render :xml => @purchase_request }
+      format.json { render :json => @purchase_request }
     end
   end
 
@@ -87,7 +87,7 @@ class PurchaseRequestsController < ApplicationController
   end
 
   # POST /purchase_requests
-  # POST /purchase_requests.xml
+  # POST /purchase_requests.json
   def create
     if @user
       @purchase_request = @user.purchase_requests.new(params[:purchase_request])
@@ -99,17 +99,17 @@ class PurchaseRequestsController < ApplicationController
       if @purchase_request.save
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.purchase_request'))
-        format.html { redirect_to user_purchase_request_url(@purchase_request.user, @purchase_request) }
-        format.xml  { render :xml => @purchase_request, :status => :created, :location => @purchase_request }
+        format.html { redirect_to(@purchase_request) }
+        format.json { render :json => @purchase_request, :status => :created, :location => @purchase_request }
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @purchase_request.errors, :status => :unprocessable_entity }
+        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # PUT /purchase_requests/1
-  # PUT /purchase_requests/1.xml
+  # PUT /purchase_requests/1.json
   def update
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
@@ -120,16 +120,16 @@ class PurchaseRequestsController < ApplicationController
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
-        format.xml  { head :ok }
+        format.json { head :ok }
       else
         format.html { render :action => "edit" }
-        format.xml  { render :xml => @purchase_request.errors, :status => :unprocessable_entity }
+        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
       end
     end
   end
 
   # DELETE /purchase_requests/1
-  # DELETE /purchase_requests/1.xml
+  # DELETE /purchase_requests/1.json
   def destroy
     if @user
       @purchase_request = @user.purchase_requests.find(params[:id])
@@ -137,13 +137,8 @@ class PurchaseRequestsController < ApplicationController
     @purchase_request.destroy
 
     respond_to do |format|
-      if current_user.has_role?('Librarian')
-        format.html { redirect_to(purchase_requests_url) }
-        format.xml  { head :ok }
-      else
-        format.html { redirect_to(user_purchase_requests_url(@user)) }
-        format.xml  { head :ok }
-      end
+      format.html { redirect_to(purchase_requests_url) }
+      format.json { head :ok }
     end
   end
 

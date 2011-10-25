@@ -2,7 +2,7 @@
 <h1 class="title"><%= t('page.editing', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@purchase_request, :url => user_purchase_request_path(@purchase_request.user, @purchase_request)) do |f| -%>
+<%= form_for(@purchase_request) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
@@ -60,7 +60,7 @@
 
 <div id="submenu" class="ui-corner-all">
   <ul>
-    <li><%= link_to t('page.show'), user_purchase_request_path(@purchase_request.user, @purchase_request) -%></li>
+    <li><%= link_to t('page.show'), @purchase_request -%></li>
     <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user, :page => flash[:page] ||= nil) -%></li>
   </ul>
 </div>
