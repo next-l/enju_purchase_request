@@ -2,7 +2,6 @@ class PurchaseRequestsController < ApplicationController
   before_filter :store_location, :only => :index
   load_and_authorize_resource
   before_filter :get_user_if_nil
-  before_filter :check_user, :only => :index
   before_filter :get_order_list
   before_filter :store_page, :only => :index
   after_filter :solr_commit, :only => [:create, :update, :destroy]
@@ -22,12 +21,22 @@ class PurchaseRequestsController < ApplicationController
     @query = query.dup
     mode = params[:mode]
 
-    search = Sunspot.new_search(PurchaseRequest)
     user = @user
+    unless current_user.has_role?('Librarian')
+      if user and user != current_user
+        access_denied; return
+      end
+    end
+
     order_list = @order_list
+    search = Sunspot.new_search(PurchaseRequest)
     search.build do
       fulltext query if query.present?
-      with(:user_id).equal_to user.id if user
+      if user
+        with(:user_id).equal_to user.id
+      else
+        with(:user_id).equal_to current_user.id
+      end
       with(:order_list_id).equal_to order_list.id if order_list
       case mode
       when 'not_ordered'
@@ -66,11 +75,7 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/new
   # GET /purchase_requests/new.json
   def new
-    @purchase_request = PurchaseRequest.new(params[:purchase_request])
-    if current_user.has_role?('Librarian')
-      @purchase_request.user = @user if @user
-    end
-    @purchase_request.user = current_user unless @purchase_request.user
+    @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
     @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
 
     respond_to do |format|
@@ -81,19 +86,12 @@ class PurchaseRequestsController < ApplicationController
 
   # GET /purchase_requests/1/edit
   def edit
-    if @user
-      @purchase_request = @user.purchase_requests.find(params[:id])
-    end
   end
 
   # POST /purchase_requests
   # POST /purchase_requests.json
   def create
-    if @user
-      @purchase_request = @user.purchase_requests.new(params[:purchase_request])
-    else
-      @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
-    end
+    @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
 
     respond_to do |format|
       if @purchase_request.save
@@ -111,10 +109,6 @@ class PurchaseRequestsController < ApplicationController
   # PUT /purchase_requests/1
   # PUT /purchase_requests/1.json
   def update
-    if @user
-      @purchase_request = @user.purchase_requests.find(params[:id])
-    end
-
     respond_to do |format|
       if @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list
@@ -131,28 +125,11 @@ class PurchaseRequestsController < ApplicationController
   # DELETE /purchase_requests/1
   # DELETE /purchase_requests/1.json
   def destroy
-    if @user
-      @purchase_request = @user.purchase_requests.find(params[:id])
-    end
     @purchase_request.destroy
 
     respond_to do |format|
       format.html { redirect_to(purchase_requests_url) }
       format.json { head :ok }
-    end
-  end
-
-  private
-  def check_user
-    unless current_user.has_role?('Librarian')
-      if @user
-        unless current_user == @user
-          access_denied; return
-        end
-      else
-        redirect_to user_purchase_requests_path(current_user)
-        return
-      end
     end
   end
 end
