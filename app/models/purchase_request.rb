@@ -13,7 +13,7 @@ class PurchaseRequest < ActiveRecord::Base
   after_save :index!
   after_destroy :index!
   before_save :set_date_of_publication
-  attr_protected :user
+  attr_protected :user_id
 
   normalize_attributes :url, :pub_date
 
