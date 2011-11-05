@@ -27,6 +27,10 @@ class PurchaseRequestsController < ApplicationController
       if user and user != current_user
         access_denied; return
       end
+      if current_user == @user
+        redirect_to purchase_requests_url(:format => params[:format])
+        return
+      end
     end
 
     order_list = @order_list
