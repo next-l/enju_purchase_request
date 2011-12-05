@@ -6,7 +6,7 @@ source "http://rubygems.org"
 gemspec
 gem 'devise'
 gem 'cancan'
-gem 'sunspot_rails', '~> 1.3.0.rc4'
+gem 'sunspot_rails', '~> 1.3'
 
 # jquery-rails is used by the dummy application
 gem "jquery-rails"
