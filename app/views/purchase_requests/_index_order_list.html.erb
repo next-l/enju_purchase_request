@@ -10,12 +10,14 @@
   <%= t('order_list.total_price') -%>: <%= @order_list.total_price -%>
 </p>
 
-<%= form_for :purchase_requests, :url => order_list_purchase_requests_path(@order_list), :html => {:method => 'get'} do -%>
-  <p>
-    <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
-    <%= submit_tag t('page.search') -%>
-  </p>
-<%- end -%>
+<div class="search_form">
+  <%= form_for :purchase_requests, :url => order_list_purchase_requests_path(@order_list), :html => {:method => 'get'} do -%>
+    <p>
+      <%= t('page.search_term') -%>: <%= search_field_tag 'query', h(@query), {:id => 'search_form_top', :class => 'search_form', :placeholder => t('page.search_term')} -%>
+      <%= submit_tag t('page.search') -%>
+    </p>
+  <%- end -%>
+</div>
 
 <table class="index">
   <tr>
