@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Purchase request management for Next-L Enju"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
-  s.test_files = Dir["test/**/*"]
+  s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "rails", "~> 3"
   s.add_dependency "will_paginate", "~> 3.0"
@@ -22,6 +22,10 @@ Gem::Specification.new do |s|
   s.add_dependency "cancan"
   s.add_dependency "sunspot_rails", "~> 1.3"
   s.add_dependency "sunspot_solr", "~> 1.3"
+  s.add_dependency "state_machine"
+  s.add_dependency "attribute_normalizer", "~> 1.0"
+  s.add_dependency "configatron"
+  s.add_dependency "addressable"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
