@@ -26,8 +26,10 @@ Gem::Specification.new do |s|
   s.add_dependency "attribute_normalizer", "~> 1.1"
   s.add_dependency "configatron"
   s.add_dependency "addressable"
+  s.add_dependency "acts_as_list", "~> 0.1.5"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails", "~> 1.7"
+  s.add_development_dependency "sunspot-rails-tester"
 end
