@@ -7,6 +7,7 @@ require 'attribute_normalizer'
 require 'configatron'
 require 'addressable/uri'
 require 'nkf'
+require 'acts_as_list'
 
 module EnjuPurchaseRequest
   class Engine < Rails::Engine

@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "url"
     t.integer  "position"
     t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   create_table "items", :force => true do |t|
@@ -32,8 +32,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "item_identifier"
     t.integer  "circulation_status_id",       :default => 5,     :null => false
     t.integer  "checkout_type_id",            :default => 1,     :null => false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                     :null => false
+    t.datetime "updated_at",                                     :null => false
     t.datetime "deleted_at"
     t.integer  "shelf_id",                    :default => 1,     :null => false
     t.integer  "basket_id"
@@ -64,8 +64,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.datetime "ordered_at"
     t.datetime "deleted_at"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "order_lists", ["bookstore_id"], :name => "index_order_lists_on_bookstore_id"
@@ -76,8 +76,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.integer  "purchase_request_id", :null => false
     t.integer  "position"
     t.string   "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   add_index "orders", ["order_list_id"], :name => "index_orders_on_order_list_id"
@@ -95,8 +95,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.text     "note"
     t.datetime "accepted_at"
     t.datetime "denied_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.datetime "deleted_at"
     t.string   "state"
     t.string   "pub_date"
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "user_groups", :force => true do |t|
@@ -119,15 +119,15 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.text     "display_name"
     t.text     "note"
     t.integer  "position"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   create_table "user_has_roles", :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -136,8 +136,8 @@ ActiveRecord::Schema.define(:version => 20111201163718) do
     t.string   "username"
     t.text     "note"
     t.string   "locale"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "email",                                 :default => "", :null => false
     t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
     t.string   "reset_password_token"
