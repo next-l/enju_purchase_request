@@ -118,7 +118,7 @@ class PurchaseRequestsController < ApplicationController
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         format.html { render :action => "edit" }
         format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
@@ -132,8 +132,8 @@ class PurchaseRequestsController < ApplicationController
     @purchase_request.destroy
 
     respond_to do |format|
-      format.html { redirect_to(purchase_requests_url) }
-      format.json { head :ok }
+      format.html { redirect_to purchase_requests_url }
+      format.json { head :no_content }
     end
   end
 end

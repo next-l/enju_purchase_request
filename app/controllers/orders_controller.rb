@@ -96,10 +96,10 @@ class OrdersController < ApplicationController
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order'))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
-          format.json { head :ok }
+          format.json { head :no_content }
         else
           format.html { redirect_to(@order) }
-          format.json { head :ok }
+          format.json { head :no_content }
         end
       else
         @order_lists = OrderList.not_ordered
@@ -119,10 +119,10 @@ class OrdersController < ApplicationController
     respond_to do |format|
       if @order_list
         format.html { redirect_to order_list_purchase_requests_url(@order_list) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
-        format.html { redirect_to(orders_url) }
-        format.json { head :ok }
+        format.html { redirect_to orders_url }
+        format.json { head :no_content }
       end
     end
   end

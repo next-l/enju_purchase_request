@@ -72,7 +72,7 @@ class OrderListsController < ApplicationController
         @order_list.sm_order! if params[:mode] == 'order'
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order_list'))
         format.html { redirect_to(@order_list) }
-        format.json { head :ok }
+        format.json { head :no_content }
       else
         @bookstores = Bookstore.all
         format.html { render :action => "edit" }
@@ -87,8 +87,8 @@ class OrderListsController < ApplicationController
     @order_list.destroy
 
     respond_to do |format|
-      format.html { redirect_to(order_lists_url) }
-      format.json { head :ok }
+      format.html { redirect_to order_lists_url }
+      format.json { head :no_content }
     end
   end
 end
