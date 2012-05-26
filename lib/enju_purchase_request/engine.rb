@@ -10,6 +10,6 @@ require 'nkf'
 require 'acts_as_list'
 
 module EnjuPurchaseRequest
-  class Engine < Rails::Engine
+  class Engine < ::Rails::Engine
   end
 end

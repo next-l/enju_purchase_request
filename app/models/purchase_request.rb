@@ -1,4 +1,7 @@
 class PurchaseRequest < ActiveRecord::Base
+  attr_accessible :title, :author, :publisher, :isbn, :price, :url,
+    :note, :pub_date
+
   scope :not_ordered, includes(:order_list).where('order_lists.ordered_at IS NULL')
   scope :ordered, includes(:order_list).where('order_lists.ordered_at IS NOT NULL')
 
@@ -13,7 +16,6 @@ class PurchaseRequest < ActiveRecord::Base
   after_save :index!
   after_destroy :index!
   before_save :set_date_of_publication
-  attr_protected :user_id
 
   normalize_attributes :url, :pub_date
 
