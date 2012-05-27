@@ -1,4 +1,5 @@
 class OrderList < ActiveRecord::Base
+  attr_accessible :user_id, :bookstore_id, :title, :note, :ordered_at
   scope :not_ordered, where(:state => 'pending')
 
   has_many :orders, :dependent => :destroy
