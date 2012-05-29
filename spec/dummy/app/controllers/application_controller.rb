@@ -5,6 +5,8 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :render_404
 
   before_filter :set_locale
+
+  enju_purchase_request
   
   private
   def render_403
@@ -62,14 +64,6 @@ class ApplicationController < ActionController::Base
 
   def get_user
     @user = User.where(:username => params[:user_id]).first if params[:user_id]
-  end
-
-  def get_order_list
-    @order_list = OrderList.find(params[:order_list_id]) if params[:order_list_id]
-  end
-
-  def get_purchase_request
-    @purchase_request = PurchaseRequest.find(params[:purchase_request_id]) if params[:purchase_request_id]
   end
 
   def get_bookstore

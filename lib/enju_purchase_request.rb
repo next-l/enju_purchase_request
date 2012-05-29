@@ -9,7 +9,7 @@ module EnjuPurchaseRequest
   end
 
   module ClassMethods
-    def enju_subject
+    def enju_purchase_request
       include EnjuPurchaseRequest::InstanceMethods
     end
   end
