@@ -19,7 +19,7 @@
       <%- if can? :destroy, order -%>
         <%= link_to t('page.show'), order_path(order) -%>
         <%= link_to t('page.edit'), edit_order_path(order) -%>
-        <%= link_to t('page.destroy'), order_path(order), :confirm => t('page.are_you_sure'), :method => :delete -%>
+        <%= link_to t('page.destroy'), order_path(order), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
       <%- end -%>
     </td>
   </tr>
