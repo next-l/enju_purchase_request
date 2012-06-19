@@ -1,13 +1,7 @@
-require 'devise'
-require 'cancan'
-require 'will_paginate'
-require 'sunspot_rails'
+require 'enju_core'
 require 'state_machine'
-require 'attribute_normalizer'
 require 'configatron'
-require 'addressable/uri'
 require 'nkf'
-require 'acts_as_list'
 
 module EnjuPurchaseRequest
   class Engine < ::Rails::Engine
