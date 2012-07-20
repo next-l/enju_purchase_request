@@ -3,6 +3,7 @@ require 'sunspot/rails/spec_helper'
 
 describe OrderListsController do
   disconnect_sunspot
+  fixtures :all
 
   describe "GET index" do
     describe "When logged in as Administrator" do
