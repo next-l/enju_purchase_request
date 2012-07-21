@@ -1,6 +1,5 @@
 require 'enju_core'
 require 'state_machine'
-require 'configatron'
 require 'nkf'
 
 module EnjuPurchaseRequest

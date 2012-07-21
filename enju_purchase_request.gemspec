@@ -18,11 +18,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2"
   s.add_dependency "state_machine"
-  s.add_dependency "configatron"
   s.add_dependency "enju_core"
 
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails"
-  s.add_development_dependency "sunspot_solr"
+  s.add_development_dependency "sunspot_solr", "~> 2.0.0.pre.120720"
 end
