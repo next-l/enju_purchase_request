@@ -10,12 +10,12 @@ end
 #
 # Table name: orders
 #
-#  id                  :integer         not null, primary key
-#  order_list_id       :integer         not null
-#  purchase_request_id :integer         not null
+#  id                  :integer          not null, primary key
+#  order_list_id       :integer          not null
+#  purchase_request_id :integer          not null
 #  position            :integer
 #  state               :string(255)
-#  created_at          :datetime
-#  updated_at          :datetime
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
 #
 
