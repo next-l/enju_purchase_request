@@ -103,6 +103,26 @@ purchase_request_00005:
   note: ""
   user_id: 2
   created_at: 2008-02-11 13:36:48.698469 +09:00
+purchase_request_00006: 
+  date_of_publication: 
+  isbn: ""
+  accepted_at: 
+  url: ""
+  updated_at: 2008-02-11 13:36:48.698469 +09:00
+  denied_at: 
+  title: "test4"
+  price: 1000
+  deleted_at: 
+  author: !binary |
+    44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
+
+  id: 6
+  publisher: !binary |
+    44G744GS44G744GS
+
+  note: ""
+  user_id: 2
+  created_at: 2008-02-11 13:36:48.698469 +09:00
 
 # == Schema Information
 #

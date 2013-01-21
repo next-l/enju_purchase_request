@@ -110,6 +110,18 @@ describe OrdersController do
         assigns(:order).should_not be_valid
         response.should be_success
       end
+
+      it "should redirect to assigns the requested order as @order" do
+        get :new, :order_list_id => 1, :purchase_request_id => 1
+        assigns(:order).should_not be_valid
+        response.should be_success
+      end
+
+      it "assigns the requested order as @order" do
+        get :new, :order_list_id => 1, :purchase_request_id => 1
+        assigns(:order).should_not be_valid
+        response.should be_success
+      end
     end
 
     describe "When logged in as Librarian" do

@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = EnjuPurchaseRequest::VERSION
   s.authors     = ["Kosuke Tanabe"]
   s.email       = ["tanabe@mwr.mediacom.keio.ac.jp"]
-  s.homepage    = "https://github.com/nabeta/enju_purchase_request"
+  s.homepage    = "https://github.com/next-l/enju_purchase_request"
   s.summary     = "enju_purchase_request plugin"
   s.description = "Purchase request management for Next-L Enju"
 
@@ -23,5 +23,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails"
-  s.add_development_dependency "sunspot_solr", "~> 2.0.0.pre.120925"
+  s.add_development_dependency "sunspot_solr", "~> 2.0.0.pre.130115"
+  s.add_development_dependency "simplecov"
 end
