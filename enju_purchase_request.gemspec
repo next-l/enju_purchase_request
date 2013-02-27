@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "factory_girl_rails"
-  s.add_development_dependency "sunspot_solr", "~> 2.0.0.pre.130115"
+  s.add_development_dependency "sunspot_solr", "~> 2.0.0"
   s.add_development_dependency "simplecov"
   s.add_development_dependency "mobylette"
 end
