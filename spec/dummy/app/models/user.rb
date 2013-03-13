@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
   belongs_to :user_group
   belongs_to :required_role, :class_name => 'Role', :foreign_key => 'required_role_id'
 
-  enju_purchase_request_user
+  enju_purchase_request_user_model
 
   def has_role?(role_in_question)
     return false unless role
