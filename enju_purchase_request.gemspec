@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2"
   s.add_dependency "state_machine"
-  s.add_dependency "enju_bookmark", "~> 0.1.2.pre8"
+  s.add_dependency "enju_bookmark", "~> 0.1.2.pre9"
 
   s.add_development_dependency "enju_biblio", "~> 0.1.0.pre26"
   s.add_development_dependency "sqlite3"
