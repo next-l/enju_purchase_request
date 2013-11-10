@@ -19,4 +19,4 @@ gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer", bra
 gem "enju_leaf", github: "nabeta/enju_leaf", branch: "rails4"
 
 # To use debugger
-# gem 'ruby-debug19', :require => 'ruby-debug'
+# gem 'debugger'
