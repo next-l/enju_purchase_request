@@ -1,4 +1,3 @@
-require 'enju_seed'
 require 'state_machine'
 require 'nkf'
 
