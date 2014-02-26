@@ -1,5 +1,6 @@
 class OrderListsController < ApplicationController
-  load_and_authorize_resource
+  load_and_authorize_resource except: [:index, :create]
+  authorize_resource only: [:index, :create]
   before_filter :get_bookstore
 
   # GET /order_lists
@@ -48,7 +49,7 @@ class OrderListsController < ApplicationController
   # POST /order_lists
   # POST /order_lists.json
   def create
-    @order_list = OrderList.new(params[:order_list])
+    @order_list = OrderList.new(order_list_params)
     @order_list.user = current_user
 
     respond_to do |format|
@@ -68,7 +69,7 @@ class OrderListsController < ApplicationController
   # PUT /order_lists/1.json
   def update
     respond_to do |format|
-      if @order_list.update_attributes(params[:order_list])
+      if @order_list.update_attributes(order_list_params)
         @order_list.sm_order! if params[:mode] == 'order'
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order_list'))
         format.html { redirect_to(@order_list) }
@@ -90,5 +91,12 @@ class OrderListsController < ApplicationController
       format.html { redirect_to order_lists_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def order_list_params
+    params.require(:order_list).permit(
+      :user_id, :bookstore_id, :title, :note, :ordered_at
+    )
   end
 end
