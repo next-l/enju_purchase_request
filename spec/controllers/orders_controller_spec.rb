@@ -37,17 +37,17 @@ describe OrdersController do
         sign_in FactoryGirl.create(:user)
       end
 
-      it "should be forbidden" do
+      it "assigns nil as @orders" do
         get :index
-        assigns(:orders).should be_empty
+        assigns(:orders).should be_nil
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "assigns all orders as @orders" do
+      it "assigns nil as @orders" do
         get :index
-        assigns(:orders).should be_empty
+        assigns(:orders).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end

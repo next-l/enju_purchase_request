@@ -1,11 +1,13 @@
 class OrderListsController < ApplicationController
-  load_and_authorize_resource except: [:index, :create]
-  authorize_resource only: [:index, :create]
-  before_filter :get_bookstore
+  before_action :set_order_list, only: [:show, :edit, :update, :destroy]
+  before_action :get_bookstore
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
 
   # GET /order_lists
   # GET /order_lists.json
   def index
+    authorize OrderList
     if @bookstore
       @order_lists = @bookstore.order_lists.page(params[:page])
     else
@@ -33,6 +35,7 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new.json
   def new
     @order_list = OrderList.new
+    authorize @order_list
     @bookstores = Bookstore.all
 
     respond_to do |format|
@@ -50,6 +53,7 @@ class OrderListsController < ApplicationController
   # POST /order_lists.json
   def create
     @order_list = OrderList.new(order_list_params)
+    authorize @order_list
     @order_list.user = current_user
 
     respond_to do |format|
@@ -94,6 +98,11 @@ class OrderListsController < ApplicationController
   end
 
   private
+  def set_order_list
+    @order_list = OrderList.find(params[:id])
+    authorize @order_list
+  end
+
   def order_list_params
     params.require(:order_list).permit(
       :user_id, :bookstore_id, :title, :note, :ordered_at

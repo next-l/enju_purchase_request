@@ -34,7 +34,7 @@
       </td>
       <td>
         <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_purchase_request_path(purchase_request) -%>
-        <%- if can? :delete, purchase_request %>
+        <%- if policy(purchase_request).destroy %>
           <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), purchase_request, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
         <%- end -%>
       </td>

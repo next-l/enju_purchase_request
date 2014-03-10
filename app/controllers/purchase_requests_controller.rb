@@ -1,15 +1,17 @@
 class PurchaseRequestsController < ApplicationController
-  load_and_authorize_resource except: [:index, :create]
-  authorize_resource only: [:index, :create]
-  before_filter :get_user
-  before_filter :get_order_list
-  before_filter :store_page, :only => :index
-  after_filter :solr_commit, :only => [:create, :update, :destroy]
-  after_filter :convert_charset, :only => :index
+  before_action :set_purchase_request, only: [:show, :edit, :update, :destroy]
+  before_action :get_user
+  before_action :get_order_list
+  before_action :store_page, :only => :index
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
+  after_action :solr_commit, :only => [:create, :update, :destroy]
+  after_action :convert_charset, :only => :index
 
   # GET /purchase_requests
   # GET /purchase_requests.json
   def index
+    authorize PurchaseRequest
     @count = {}
     if params[:format] == 'csv'
       per_page = 65534
@@ -79,7 +81,9 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/new
   # GET /purchase_requests/new.json
   def new
-    @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
+    @purchase_request = PurchaseRequest.new
+    authorize @purchase_request
+    @purchase_request.user = current_user
     @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
 
     respond_to do |format|
@@ -95,7 +99,9 @@ class PurchaseRequestsController < ApplicationController
   # POST /purchase_requests
   # POST /purchase_requests.json
   def create
-    @purchase_request = current_user.purchase_requests.new(purchase_request_params)
+    @purchase_request = PurchaseRequest.new(purchase_request_params)
+    authorize @purchase_request
+    @purchase_request.user = current_user
 
     respond_to do |format|
       if @purchase_request.save
@@ -138,6 +144,11 @@ class PurchaseRequestsController < ApplicationController
   end
 
   private
+  def set_purchase_request
+    @purchase_request = PurchaseRequest.find(params[:id])
+    authorize @purchase_request
+  end
+
   def purchase_request_params
     params.require(:purchase_request).permit(
       :title, :author, :publisher, :isbn, :price, :url,
