@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "enju_purchase_request"
   s.version     = EnjuPurchaseRequest::VERSION
   s.authors     = ["Kosuke Tanabe"]
-  s.email       = ["tanabe@mwr.mediacom.keio.ac.jp"]
+  s.email       = ["nabeta@fastmail.fm"]
   s.homepage    = "https://github.com/next-l/enju_purchase_request"
   s.summary     = "enju_purchase_request plugin"
   s.description = "Purchase request management for Next-L Enju"
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 4.0"
+  s.add_dependency "rails", "~> 4.1"
   s.add_dependency "state_machine"
   #s.add_dependency "enju_bookmark", "~> 0.2.0.pre1"
 
