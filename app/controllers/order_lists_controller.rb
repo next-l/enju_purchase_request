@@ -2,7 +2,6 @@ class OrderListsController < ApplicationController
   before_action :set_order_list, only: [:show, :edit, :update, :destroy]
   before_action :get_bookstore
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
 
   # GET /order_lists
   # GET /order_lists.json
@@ -25,10 +24,6 @@ class OrderListsController < ApplicationController
   # GET /order_lists/1
   # GET /order_lists/1.json
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @order_list }
-    end
   end
 
   # GET /order_lists/new

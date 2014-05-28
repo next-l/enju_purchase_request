@@ -3,7 +3,6 @@ class OrdersController < ApplicationController
   before_action :get_order_list
   before_action :get_purchase_request
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
 
   # GET /orders
   # GET /orders.json
@@ -30,10 +29,6 @@ class OrdersController < ApplicationController
   # GET /orders/1
   # GET /orders/1.json
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @order }
-    end
   end
 
   # GET /orders/new

@@ -13,7 +13,7 @@ class OrderList < ActiveRecord::Base
 
   paginates_per 10
 
-  has_many :user_checkout_stat_transitions
+  has_many :order_list_transitions
 
   def state_machine
     OrderListStateMachine.new(self, transition_class: OrderListTransition)
@@ -36,7 +36,7 @@ class OrderList < ActiveRecord::Base
 
   private
   def self.transition_class
-    UserCheckoutStatTransition
+    OrderListTransition
   end
 end
 

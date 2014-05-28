@@ -4,7 +4,6 @@ class PurchaseRequestsController < ApplicationController
   before_action :get_order_list
   before_action :store_page, :only => :index
   after_action :verify_authorized
-  after_action :verify_policy_scoped, :only => :index
   after_action :solr_commit, :only => [:create, :update, :destroy]
   after_action :convert_charset, :only => :index
 
@@ -72,10 +71,6 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/1
   # GET /purchase_requests/1.json
   def show
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render :json => @purchase_request }
-    end
   end
 
   # GET /purchase_requests/new
