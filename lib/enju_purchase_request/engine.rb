@@ -1,5 +1,4 @@
-require 'enju_core'
-require 'state_machine'
+require 'statesman'
 require 'nkf'
 
 module EnjuPurchaseRequest

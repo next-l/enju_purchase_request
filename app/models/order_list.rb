@@ -1,6 +1,6 @@
 class OrderList < ActiveRecord::Base
-  attr_accessible :user_id, :bookstore_id, :title, :note, :ordered_at
-  scope :not_ordered, where(:state => 'pending')
+  include Statesman::Adapters::ActiveRecordModel
+  scope :not_ordered, -> {in_state(:pending)}
 
   has_many :orders, :dependent => :destroy
   has_many :purchase_requests, :through => :orders
@@ -11,15 +11,16 @@ class OrderList < ActiveRecord::Base
   validates_presence_of :title, :user, :bookstore
   validates_associated :user, :bookstore
 
-  state_machine :initial => :pending do
-    before_transition :pending => :ordered, :do => :order
+  paginates_per 10
 
-    event :sm_order do
-      transition :pending => :ordered
-    end
+  has_many :user_checkout_stat_transitions
+
+  def state_machine
+    OrderListStateMachine.new(self, transition_class: OrderListTransition)
   end
 
-  paginates_per 10
+  delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
+    to: :state_machine
 
   def total_price
     self.purchase_requests.sum(:price)
@@ -31,6 +32,11 @@ class OrderList < ActiveRecord::Base
 
   def ordered?
     true if self.ordered_at.present?
+  end
+
+  private
+  def self.transition_class
+    UserCheckoutStatTransition
   end
 end
 

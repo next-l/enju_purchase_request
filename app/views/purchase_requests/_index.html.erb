@@ -1,4 +1,4 @@
-<div id="content_detail" class="ui-corner-all">
+<div id="content_detail" class="ui-corner-all ui-widget-content">
   <h1 class="title"><%= t('page.listing', :model => t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 
@@ -34,7 +34,7 @@
       </td>
       <td>
         <%= link_to image_tag('icons/page_white_edit.png', :size => '16x16', :alt => t('page.edit')), edit_purchase_request_path(purchase_request) -%>
-        <%- if can? :delete, purchase_request %>
+        <%- if policy(purchase_request).destroy %>
           <%= link_to image_tag('icons/delete.png', :size => '16x16', :alt => t('page.destroy')), purchase_request, :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
         <%- end -%>
       </td>
@@ -47,7 +47,7 @@
 </div>
 </div>
 
-<div id="submenu" class="ui-corner-all">
+<div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <li><%= link_to t('page.new', :model => t('activerecord.models.purchase_request')), new_purchase_request_path %></li>
     <% if current_user.try(:has_role?, 'Librarian') %>

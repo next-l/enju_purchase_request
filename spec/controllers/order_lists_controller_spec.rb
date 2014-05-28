@@ -13,7 +13,7 @@ describe OrderListsController do
 
       it "assigns all order_lists as @order_lists" do
         get :index
-        assigns(:order_lists).should eq(OrderList.all)
+        assigns(:order_lists).should eq(OrderList.page(1))
       end
     end
 
@@ -24,7 +24,7 @@ describe OrderListsController do
 
       it "assigns all order_lists as @order_lists" do
         get :index
-        assigns(:order_lists).should eq(OrderList.all)
+        assigns(:order_lists).should eq(OrderList.page(1))
       end
     end
 
@@ -33,16 +33,16 @@ describe OrderListsController do
         sign_in FactoryGirl.create(:user)
       end
 
-      it "assigns empty as @order_lists" do
+      it "assigns nil as @order_lists" do
         get :index
-        assigns(:order_lists).should be_empty
+        assigns(:order_lists).should be_nil
       end
     end
 
     describe "When not logged in" do
-      it "assigns empty as @order_lists" do
+      it "assigns nil as @order_lists" do
         get :index
-        assigns(:order_lists).should be_empty
+        assigns(:order_lists).should be_nil
       end
     end
   end

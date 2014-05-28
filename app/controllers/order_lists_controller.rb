@@ -1,10 +1,13 @@
 class OrderListsController < ApplicationController
-  load_and_authorize_resource
-  before_filter :get_bookstore
+  before_action :set_order_list, only: [:show, :edit, :update, :destroy]
+  before_action :get_bookstore
+  after_action :verify_authorized
+  after_action :verify_policy_scoped, :only => :index
 
   # GET /order_lists
   # GET /order_lists.json
   def index
+    authorize OrderList
     if @bookstore
       @order_lists = @bookstore.order_lists.page(params[:page])
     else
@@ -32,6 +35,7 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new.json
   def new
     @order_list = OrderList.new
+    authorize @order_list
     @bookstores = Bookstore.all
 
     respond_to do |format|
@@ -48,7 +52,8 @@ class OrderListsController < ApplicationController
   # POST /order_lists
   # POST /order_lists.json
   def create
-    @order_list = OrderList.new(params[:order_list])
+    @order_list = OrderList.new(order_list_params)
+    authorize @order_list
     @order_list.user = current_user
 
     respond_to do |format|
@@ -68,7 +73,7 @@ class OrderListsController < ApplicationController
   # PUT /order_lists/1.json
   def update
     respond_to do |format|
-      if @order_list.update_attributes(params[:order_list])
+      if @order_list.update_attributes(order_list_params)
         @order_list.sm_order! if params[:mode] == 'order'
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order_list'))
         format.html { redirect_to(@order_list) }
@@ -90,5 +95,17 @@ class OrderListsController < ApplicationController
       format.html { redirect_to order_lists_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def set_order_list
+    @order_list = OrderList.find(params[:id])
+    authorize @order_list
+  end
+
+  def order_list_params
+    params.require(:order_list).permit(
+      :user_id, :bookstore_id, :title, :note, :ordered_at
+    )
   end
 end

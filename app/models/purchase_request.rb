@@ -1,8 +1,6 @@
 class PurchaseRequest < ActiveRecord::Base
-  attr_accessible :title, :author, :publisher, :isbn, :price, :url,
-    :note, :pub_date
-  scope :not_ordered, includes(:order_list).where('order_lists.ordered_at IS NULL')
-  scope :ordered, includes(:order_list).where('order_lists.ordered_at IS NOT NULL')
+  scope :not_ordered, -> {includes(:order_list).where('order_lists.ordered_at IS NULL')}
+  scope :ordered, -> {includes(:order_list).where('order_lists.ordered_at IS NOT NULL')}
 
   belongs_to :user, :validate => true
   has_one :order, :dependent => :destroy
