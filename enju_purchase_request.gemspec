@@ -8,7 +8,7 @@ Gem::Specification.new do |s|
   s.name        = "enju_purchase_request"
   s.version     = EnjuPurchaseRequest::VERSION
   s.authors     = ["Kosuke Tanabe"]
-  s.email       = ["tanabe@mwr.mediacom.keio.ac.jp"]
+  s.email       = ["nabeta@fastmail.fm"]
   s.homepage    = "https://github.com/next-l/enju_purchase_request"
   s.summary     = "enju_purchase_request plugin"
   s.description = "Purchase request management for Next-L Enju"
@@ -18,9 +18,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2"
   s.add_dependency "state_machine"
-  s.add_dependency "enju_bookmark", "~> 0.1.2.pre12"
+  s.add_dependency "enju_bookmark", "~> 0.1.2.pre14"
 
-  s.add_development_dependency "enju_leaf", "~> 1.1.0.rc7"
+  s.add_development_dependency "enju_leaf", "~> 1.1.0.rc9"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails", "2.99"
   s.add_development_dependency "factory_girl_rails"
