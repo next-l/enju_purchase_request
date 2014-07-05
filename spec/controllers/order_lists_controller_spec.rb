@@ -1,8 +1,6 @@
 require 'spec_helper'
-require 'sunspot/rails/spec_helper'
 
 describe OrderListsController do
-  disconnect_sunspot
   fixtures :all
 
   describe "GET index" do
