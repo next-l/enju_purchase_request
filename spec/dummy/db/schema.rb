@@ -471,8 +471,8 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.datetime "created_at",                                                        :null => false
     t.datetime "updated_at",                                                        :null => false
     t.text     "admin_networks"
-    t.string   "url",                         :default => "http://localhost:3000/"
     t.boolean  "allow_bookmark_external_url", :default => false,                    :null => false
+    t.string   "url",                         :default => "http://localhost:3000/"
   end
 
   add_index "library_groups", ["short_name"], :name => "index_library_groups_on_short_name"
@@ -583,6 +583,18 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.datetime "updated_at",   :null => false
   end
 
+  create_table "order_list_transitions", :force => true do |t|
+    t.string   "to_state"
+    t.text     "metadata",      :default => "{}"
+    t.integer  "sort_key"
+    t.integer  "order_list_id"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+  end
+
+  add_index "order_list_transitions", ["order_list_id"], :name => "index_order_list_transitions_on_order_list_id"
+  add_index "order_list_transitions", ["sort_key", "order_list_id"], :name => "index_order_list_transitions_on_sort_key_and_order_list_id", :unique => true
+
   create_table "order_lists", :force => true do |t|
     t.integer  "user_id",      :null => false
     t.integer  "bookstore_id", :null => false
@@ -590,7 +602,6 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.text     "note"
     t.datetime "ordered_at"
     t.datetime "deleted_at"
-    t.string   "state"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
   end
@@ -1035,6 +1046,7 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
+    t.boolean  "share_bookmarks"
     t.string   "username"
     t.datetime "deleted_at"
     t.datetime "expired_at"
@@ -1042,7 +1054,6 @@ ActiveRecord::Schema.define(:version => 20140813182425) do
     t.string   "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
-    t.boolean  "share_bookmarks"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email"
