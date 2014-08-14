@@ -34,7 +34,11 @@ class PurchaseRequest < ActiveRecord::Base
     time :accepted_at
     time :denied_at
     boolean :ordered do
-      order_list.try(:ordered_at).present? ? true : false
+      if order_list.try(:current_state) == 'ordered'
+        true
+      else
+        false
+      end
     end
   end
 

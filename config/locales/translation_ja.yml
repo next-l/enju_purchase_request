@@ -44,3 +44,6 @@ ja:
   order_list:
     library_group_order_list: "%{library_group_name} の発注リスト"
     total_price: "合計価格"
+    create_order_sheet: "発注票を作成する"
+    requested: "未発注"
+    ordered: "発注済み"

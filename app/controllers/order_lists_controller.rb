@@ -1,6 +1,7 @@
 class OrderListsController < ApplicationController
   load_and_authorize_resource
-  before_filter :get_bookstore
+  before_filter :prepare_options, only: [:new, :edit]
+  before_filter :get_bookstore, only: :index
 
   # GET /order_lists
   # GET /order_lists.json
@@ -31,9 +32,6 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new
   # GET /order_lists/new.json
   def new
-    @order_list = OrderList.new
-    @bookstores = Bookstore.all
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @order_list }
@@ -42,8 +40,7 @@ class OrderListsController < ApplicationController
 
   # GET /order_lists/1/edit
   def edit
-    @bookstores = Bookstore.all
-    if params[:mode] == 'edit'
+    if params[:mode] == 'order'
       @order_list.edit_mode = 'order'
     end
   end
@@ -56,11 +53,10 @@ class OrderListsController < ApplicationController
 
     respond_to do |format|
       if @order_list.save
-        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.order_list'))
-        format.html { redirect_to(@order_list) }
+        format.html { redirect_to @order_list, notice: t('controller.successfully_created', model: t('activerecord.models.order_list')) }
         format.json { render json: @order_list, status: :created, location: @order_list }
       else
-        @bookstores = Bookstore.all
+        prepare_options
         format.html { render action: "new" }
         format.json { render json: @order_list.errors, status: :unprocessable_entity }
       end
@@ -70,14 +66,19 @@ class OrderListsController < ApplicationController
   # PUT /order_lists/1
   # PUT /order_lists/1.json
   def update
+
     respond_to do |format|
       if @order_list.update_attributes(params[:order_list])
-        @order_list.sm_order! if @order_list.edit_mode == 'order'
-        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.order_list'))
-        format.html { redirect_to(@order_list) }
+        if @order_list.edit_mode == 'order'
+          @order_list.transition_to(:ordered)
+          @order_list.save(validate: false)
+          format.html { redirect_to purchase_requests_url(order_list_id: @order_list.id), notice: t('controller.successfully_updated', model: t('activerecord.models.order_list')) }
+        else
+          format.html { redirect_to @order_list , notice: t('controller.successfully_updated', model: t('activerecord.models.order_list')) }
+        end
         format.json { head :no_content }
       else
-        @bookstores = Bookstore.all
+        prepare_options
         format.html { render action: "edit" }
         format.json { render json: @order_list.errors, status: :unprocessable_entity }
       end
@@ -93,5 +94,10 @@ class OrderListsController < ApplicationController
       format.html { redirect_to order_lists_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def prepare_options
+    @bookstores = Bookstore.all
   end
 end

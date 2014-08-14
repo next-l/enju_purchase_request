@@ -2,7 +2,7 @@ class OrderList < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordModel
   attr_accessible :user_id, :bookstore_id, :title, :note, :ordered_at,
     :edit_mode
-  scope :not_ordered, -> {in_state(:requested)}
+  scope :not_ordered, -> {in_state(:not_ordered)}
 
   has_many :orders, dependent: :destroy
   has_many :purchase_requests, through: :orders
@@ -11,7 +11,7 @@ class OrderList < ActiveRecord::Base
   has_many :subscriptions
 
   before_create do
-    transition_to(:requested)
+    transition_to(:not_ordered)
   end
 
   validates_presence_of :title, :user, :bookstore
@@ -31,7 +31,7 @@ class OrderList < ActiveRecord::Base
     to: :state_machine
 
   def total_price
-    self.purchase_requests.sum(:price)
+    purchase_requests.sum(:price)
   end
 
   def order
@@ -39,9 +39,10 @@ class OrderList < ActiveRecord::Base
   end
 
   def ordered?
-    true if self.ordered_at.present?
+    true if current_state == 'ordered'
   end
 
+  private
   def self.transition_class
     OrderListTransition
   end

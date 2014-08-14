@@ -44,3 +44,6 @@ en:
   order_list:
     library_group_order_list: "Order lists in %{library_group_name}"
     total_price: "Total price"
+    create_order_sheet: "Create an order sheet"
+    requested: "Not ordered"
+    ordered: "Ordered"
