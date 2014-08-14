@@ -1,4 +1,4 @@
-require 'enju_seed'
+require 'enju_bookmark'
 require 'statesman'
 require 'nkf'
 
