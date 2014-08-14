@@ -1,8 +1,8 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.new', :model => t('activerecord.models.purchase_request')) -%></h1>
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.purchase_request')) -%></h1>
 <div id="content_list">
 
-<%= form_for(@purchase_request, :url => order_list_purchase_requests_path(@order_list)) do |f| -%>
+<%= form_for(@purchase_request, url: order_list_purchase_requests_path(@order_list)) do |f| -%>
   <%= f.error_messages -%>
 
   <div class="field">
@@ -16,22 +16,22 @@
 
   <div class="field">
     <%= f.label :title -%><br />
-    <%= f.text_area :title, :class => 'resource_textarea' -%>
+    <%= f.text_area :title, class: 'resource_textarea' -%>
   </div>
 
   <div class="field">
     <%= f.label :author -%><br />
-    <%= f.text_area :author, :class => 'resource_textarea' -%>
+    <%= f.text_area :author, class: 'resource_textarea' -%>
   </div>
 
   <div class="field">
     <%= f.label :publisher -%><br />
-    <%= f.text_area :publisher, :class => 'resource_textarea' -%>
+    <%= f.text_area :publisher, class: 'resource_textarea' -%>
   </div>
 
   <div class="field">
     <%= f.label :isbn -%><br />
-    <%= f.text_field :isbn, :class => 'resource_isbn_issn' -%>
+    <%= f.text_field :isbn, class: 'resource_isbn_issn' -%>
   </div>
 
   <div class="field">
@@ -41,17 +41,17 @@
 
   <div class="field">
     <%= f.label :price -%><br />
-    <%= f.text_field :price, :class => 'resource_integer' -%>
+    <%= f.text_field :price, class: 'resource_integer' -%>
   </div>
 
   <div class="field">
     <%= f.label :url -%><br />
-    <%= f.url_field :url, :class => 'resource_url' -%>
+    <%= f.url_field :url, class: 'resource_url' -%>
   </div>
 
   <div class="field">
     <%= f.label :note -%><br />
-    <%= f.text_area :note, :class => 'resource_textarea' -%>
+    <%= f.text_area :note, class: 'resource_textarea' -%>
   </div>
 
   <div class="actions">
