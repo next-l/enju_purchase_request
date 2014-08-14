@@ -13,7 +13,7 @@ class OrderListsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @order_lists }
+      format.json { render json: @order_lists }
       format.rss  { render :layout => false }
       format.atom
     end
@@ -24,7 +24,7 @@ class OrderListsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @order_list }
+      format.json { render json: @order_list }
     end
   end
 
@@ -36,7 +36,7 @@ class OrderListsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @order_list }
+      format.json { render json: @order_list }
     end
   end
 
@@ -55,11 +55,11 @@ class OrderListsController < ApplicationController
       if @order_list.save
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.order_list'))
         format.html { redirect_to(@order_list) }
-        format.json { render :json => @order_list, :status => :created, :location => @order_list }
+        format.json { render json: @order_list, :status => :created, :location => @order_list }
       else
         @bookstores = Bookstore.all
         format.html { render :action => "new" }
-        format.json { render :json => @order_list.errors, :status => :unprocessable_entity }
+        format.json { render json: @order_list.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -76,7 +76,7 @@ class OrderListsController < ApplicationController
       else
         @bookstores = Bookstore.all
         format.html { render :action => "edit" }
-        format.json { render :json => @order_list.errors, :status => :unprocessable_entity }
+        format.json { render json: @order_list.errors, :status => :unprocessable_entity }
       end
     end
   end

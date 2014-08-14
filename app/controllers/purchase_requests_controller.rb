@@ -60,7 +60,7 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @purchase_requests }
+      format.json { render json: @purchase_requests }
       format.rss  { render :layout => false }
       format.atom
       format.txt
@@ -72,7 +72,7 @@ class PurchaseRequestsController < ApplicationController
   def show
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render :json => @purchase_request }
+      format.json { render json: @purchase_request }
     end
   end
 
@@ -84,7 +84,7 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @purchase_request }
+      format.json { render json: @purchase_request }
     end
   end
 
@@ -102,10 +102,10 @@ class PurchaseRequestsController < ApplicationController
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
-        format.json { render :json => @purchase_request, :status => :created, :location => @purchase_request }
+        format.json { render json: @purchase_request, :status => :created, :location => @purchase_request }
       else
         format.html { render :action => "new" }
-        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
+        format.json { render json: @purchase_request.errors, :status => :unprocessable_entity }
       end
     end
   end
@@ -121,7 +121,7 @@ class PurchaseRequestsController < ApplicationController
         format.json { head :no_content }
       else
         format.html { render :action => "edit" }
-        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
+        format.json { render json: @purchase_request.errors, :status => :unprocessable_entity }
       end
     end
   end

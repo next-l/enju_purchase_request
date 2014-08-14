@@ -68,7 +68,7 @@
       <% if params[:url].try(:bookmarkable?) %>
         <li><%= link_to t('page.back'), :back %></li>
       <% end %>
-      <li><%= link_to t('page.listing', model: t('activerecord.models.purchase_request')), user_purchase_requests_path(@user) -%></li>
+      <li><%= link_to t('page.listing', model: t('activerecord.models.purchase_request')), purchase_requests_path(user_id: @user.username) -%></li>
     <%- else -%>
       <li><%= link_to t('page.listing', model: t('activerecord.models.purchase_request')), purchase_requests_path -%></li>
     <%- end -%>

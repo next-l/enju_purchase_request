@@ -66,7 +66,7 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <%- if @user -%>
-      <li><%= link_to t('page.back'), user_purchase_requests_path(@user) -%></li>
+      <li><%= link_to t('page.back'), purchase_requests_path(user_id: @user.username) -%></li>
     <%- else -%>
       <li><%= link_to t('page.back'), purchase_requests_path -%></li>
     <%- end -%>

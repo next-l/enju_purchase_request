@@ -5,10 +5,10 @@ xml.rss('version' => "2.0",
   xml.channel{
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
     if @user
-      xml.title t('purchase_request.user_purchase_request', :login_name => @user.username)
-      xml.link user_purchase_requests_url(@user)
-      xml.tag! "atom:link", rel: 'self', href: user_purchase_requests_url(@user, format: :rss)
-      xml.tag! "atom:link", rel: 'alternate', href: user_purchase_requests_url(@user)
+      xml.title t('purchase_request.user_purchase_request', login_name: @user.username)
+      xml.link purchase_requests_url(user_id: @user.username)
+      xml.tag! "atom:link", rel: 'self', href: purchase_requests_url(user_id: @user.username, format: :rss)
+      xml.tag! "atom:link", rel: 'alternate', href: purchase_requests_url(user_id: @user.username)
     else
       xml.title t('purchase_request.library_group_purchase_request', library_group_name: @library_group.display_name.localize)
       xml.link purchase_requests_url

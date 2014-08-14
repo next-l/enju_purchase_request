@@ -61,6 +61,6 @@
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
     <li><%= link_to t('page.show'), @purchase_request -%></li>
-    <li><%= link_to t('page.back'), user_purchase_requests_path(@purchase_request.user, page: flash[:page] ||= nil) -%></li>
+    <li><%= link_to t('page.back'), purchase_requests_path(user_id: @purchase_request.user.username, page: flash[:page] ||= nil) -%></li>
   </ul>
 </div>
