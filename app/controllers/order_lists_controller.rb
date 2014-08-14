@@ -14,7 +14,7 @@ class OrderListsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @order_lists }
-      format.rss  { render :layout => false }
+      format.rss  { render layout: false }
       format.atom
     end
   end
@@ -56,13 +56,13 @@ class OrderListsController < ApplicationController
 
     respond_to do |format|
       if @order_list.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.order_list'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.order_list'))
         format.html { redirect_to(@order_list) }
-        format.json { render json: @order_list, :status => :created, :location => @order_list }
+        format.json { render json: @order_list, status: :created, location: @order_list }
       else
         @bookstores = Bookstore.all
-        format.html { render :action => "new" }
-        format.json { render json: @order_list.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @order_list.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -73,13 +73,13 @@ class OrderListsController < ApplicationController
     respond_to do |format|
       if @order_list.update_attributes(params[:order_list])
         @order_list.sm_order! if @order_list.edit_mode == 'order'
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order_list'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.order_list'))
         format.html { redirect_to(@order_list) }
         format.json { head :no_content }
       else
         @bookstores = Bookstore.all
-        format.html { render :action => "edit" }
-        format.json { render json: @order_list.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @order_list.errors, status: :unprocessable_entity }
       end
     end
   end

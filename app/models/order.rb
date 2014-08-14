@@ -1,7 +1,7 @@
 class Order < ActiveRecord::Base
   attr_accessible :order_list_id, :purchase_request_id
-  belongs_to :order_list, :validate => true
-  belongs_to :purchase_request, :validate => true
+  belongs_to :order_list, validate: true
+  belongs_to :purchase_request, validate: true
 
   validates_associated :order_list, :purchase_request
   validates_presence_of :order_list, :purchase_request

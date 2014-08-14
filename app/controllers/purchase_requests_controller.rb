@@ -1,11 +1,11 @@
 class PurchaseRequestsController < ApplicationController
-  load_and_authorize_resource :except => :index
-  authorize_resource :only => :index
+  load_and_authorize_resource except: :index
+  authorize_resource only: :index
   before_filter :get_user
   before_filter :get_order_list
-  before_filter :store_page, :only => :index
-  after_filter :solr_commit, :only => [:create, :update, :destroy]
-  after_filter :convert_charset, :only => :index
+  before_filter :store_page, only: :index
+  after_filter :solr_commit, only: [:create, :update, :destroy]
+  after_filter :convert_charset, only: :index
 
   # GET /purchase_requests
   # GET /purchase_requests.json
@@ -27,7 +27,7 @@ class PurchaseRequestsController < ApplicationController
         access_denied; return
       end
       if current_user == @user
-        redirect_to purchase_requests_url(:format => params[:format])
+        redirect_to purchase_requests_url(format: params[:format])
         return
       end
     end
@@ -61,7 +61,7 @@ class PurchaseRequestsController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @purchase_requests }
-      format.rss  { render :layout => false }
+      format.rss  { render layout: false }
       format.atom
       format.txt
     end
@@ -100,12 +100,12 @@ class PurchaseRequestsController < ApplicationController
     respond_to do |format|
       if @purchase_request.save
         @order_list.purchase_requests << @purchase_request if @order_list
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.purchase_request'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
-        format.json { render json: @purchase_request, :status => :created, :location => @purchase_request }
+        format.json { render json: @purchase_request, status: :created, location: @purchase_request }
       else
-        format.html { render :action => "new" }
-        format.json { render json: @purchase_request.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @purchase_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -116,12 +116,12 @@ class PurchaseRequestsController < ApplicationController
     respond_to do |format|
       if @purchase_request.update_attributes(params[:purchase_request])
         @order_list.purchase_requests << @purchase_request if @order_list
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
-        format.json { render json: @purchase_request.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @purchase_request.errors, status: :unprocessable_entity }
       end
     end
   end

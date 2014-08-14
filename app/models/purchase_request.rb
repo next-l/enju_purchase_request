@@ -4,9 +4,9 @@ class PurchaseRequest < ActiveRecord::Base
   scope :not_ordered, includes(:order_list).where('order_lists.ordered_at IS NULL')
   scope :ordered, includes(:order_list).where('order_lists.ordered_at IS NOT NULL')
 
-  belongs_to :user, :validate => true
-  has_one :order, :dependent => :destroy
-  has_one :order_list, :through => :order
+  belongs_to :user, validate: true
+  has_one :order, dependent: :destroy
+  has_one :order_list, through: :order
 
   validates_associated :user
   validates_presence_of :user, :title

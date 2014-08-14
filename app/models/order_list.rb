@@ -4,10 +4,10 @@ class OrderList < ActiveRecord::Base
     :edit_mode
   scope :not_ordered, -> {in_state(:requested)}
 
-  has_many :orders, :dependent => :destroy
-  has_many :purchase_requests, :through => :orders
-  belongs_to :user, :validate => true
-  belongs_to :bookstore, :validate => true
+  has_many :orders, dependent: :destroy
+  has_many :purchase_requests, through: :orders
+  belongs_to :user, validate: true
+  belongs_to :bookstore, validate: true
   has_many :subscriptions
 
   before_create do

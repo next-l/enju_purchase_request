@@ -70,18 +70,18 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.save
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.order'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.order'))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
-          format.json { render json: @order, :status => :created, :location => @order }
+          format.json { render json: @order, status: :created, location: @order }
         else
           format.html { redirect_to(@order) }
-          format.json { render json: @order, :status => :created, :location => @order }
+          format.json { render json: @order, status: :created, location: @order }
         end
       else
         @order_lists = OrderList.not_ordered
-        format.html { render :action => "new" }
-        format.json { render json: @order.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -93,7 +93,7 @@ class OrdersController < ApplicationController
 
     respond_to do |format|
       if @order.update_attributes(params[:order])
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.order'))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
           format.json { head :no_content }
@@ -103,8 +103,8 @@ class OrdersController < ApplicationController
         end
       else
         @order_lists = OrderList.not_ordered
-        format.html { render :action => "edit" }
-        format.json { render json: @order.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @order.errors, status: :unprocessable_entity }
       end
     end
   end
