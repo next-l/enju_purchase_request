@@ -1,5 +1,6 @@
 class OrderList < ActiveRecord::Base
-  attr_accessible :user_id, :bookstore_id, :title, :note, :ordered_at
+  attr_accessible :user_id, :bookstore_id, :title, :note, :ordered_at,
+    :edit_mode
   scope :not_ordered, where(:state => 'pending')
 
   has_many :orders, :dependent => :destroy
@@ -10,6 +11,8 @@ class OrderList < ActiveRecord::Base
 
   validates_presence_of :title, :user, :bookstore
   validates_associated :user, :bookstore
+
+  attr_accessor :edit_mode
 
   state_machine :initial => :pending do
     before_transition :pending => :ordered, :do => :order

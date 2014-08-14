@@ -43,6 +43,9 @@ class OrderListsController < ApplicationController
   # GET /order_lists/1/edit
   def edit
     @bookstores = Bookstore.all
+    if params[:mode] == 'edit'
+      @order_list.edit_mode = 'order'
+    end
   end
 
   # POST /order_lists
@@ -69,7 +72,7 @@ class OrderListsController < ApplicationController
   def update
     respond_to do |format|
       if @order_list.update_attributes(params[:order_list])
-        @order_list.sm_order! if params[:mode] == 'order'
+        @order_list.sm_order! if @order_list.edit_mode == 'order'
         flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.order_list'))
         format.html { redirect_to(@order_list) }
         format.json { head :no_content }
