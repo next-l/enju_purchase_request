@@ -11,7 +11,7 @@ class PurchaseRequest < ActiveRecord::Base
   validates_associated :user
   validates_presence_of :user, :title
   validate :check_price
-  validates :url, :url => true, :allow_blank => true, :length => {:maximum => 255}
+  validates :url, url: true, allow_blank: true, length: {:maximum => 255}
   after_save :index!
   after_destroy :index!
   before_save :set_date_of_publication

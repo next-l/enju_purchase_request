@@ -1,5 +1,5 @@
 module OrderListHelper
-  def localized_state(current_state)
+  def localized_order_state(current_state)
     case current_state
     when 'pending'
       t('state.pending')
