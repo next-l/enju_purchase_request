@@ -7,7 +7,7 @@
 
   <div class="field">
     <%= f.label t('activerecord.models.user') -%><br />
-    <%= link_to @purchase_request.user.username, @purchase_request.user -%>
+    <%= link_to @purchase_request.user.username, @purchase_request.user.profile if @purchase_request.user.try(:profile) -%>
     <%= f.hidden_field :user_id -%>
   </div>
 
