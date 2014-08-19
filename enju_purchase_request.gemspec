@@ -18,9 +18,9 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rails", "~> 3.2"
   s.add_dependency "statesman"
-  s.add_dependency "enju_bookmark", "~> 0.1.2.pre15"
+  s.add_dependency "enju_bookmark", "~> 0.1.2.pre16"
 
-  s.add_development_dependency "enju_leaf", "~> 1.1.0.rc13"
+  s.add_development_dependency "enju_leaf", "~> 1.1.0.rc14"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "rspec-rails", "~> 3.0"
   s.add_development_dependency "factory_girl_rails"
