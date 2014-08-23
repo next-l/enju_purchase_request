@@ -16,9 +16,9 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["spec/**/*"]
 
-  s.add_dependency "rails", "~> 3.2"
+  s.add_dependency "rails", ">= 3.2.19", "< 4.2"
   s.add_dependency "statesman"
-  s.add_dependency "enju_bookmark", "~> 0.1.2.pre16"
+  s.add_dependency "enju_bookmark", "~> 0.1.2.pre17"
 
   s.add_development_dependency "enju_leaf", "~> 1.1.0.rc14"
   s.add_development_dependency "sqlite3"
