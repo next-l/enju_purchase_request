@@ -10,7 +10,7 @@ class OrderList < ActiveRecord::Base
   belongs_to :bookstore, validate: true
   has_many :subscriptions
 
-  before_create do
+  after_create do
     transition_to(:not_ordered)
   end
 
