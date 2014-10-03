@@ -17,7 +17,7 @@ describe OrdersController do
 
       it "assigns all orders as @orders" do
         get :index
-        assigns(:orders).should eq(Order.all)
+        assigns(:orders).should eq(Order.page(1))
       end
     end
 
@@ -28,7 +28,7 @@ describe OrdersController do
 
       it "assigns all orders as @orders" do
         get :index
-        assigns(:orders).should eq(Order.all)
+        assigns(:orders).should eq(Order.page(1))
       end
     end
 
