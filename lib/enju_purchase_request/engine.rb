@@ -1,4 +1,3 @@
-require 'enju_bookmark'
 require 'statesman'
 require 'nkf'
 

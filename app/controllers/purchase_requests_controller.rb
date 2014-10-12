@@ -80,7 +80,9 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/new.json
   def new
     @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
-    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
+    if defined?(EnjuBookmark)
+      @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
+    end
 
     respond_to do |format|
       format.html # new.html.erb
