@@ -1,5 +1,5 @@
 class OrderList < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordModel
+  include Statesman::Adapters::ActiveRecordQueries
   attr_accessible :user_id, :bookstore_id, :title, :note, :ordered_at,
     :edit_mode
   scope :not_ordered, -> {in_state(:not_ordered)}
