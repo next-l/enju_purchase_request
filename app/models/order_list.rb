@@ -46,6 +46,10 @@ class OrderList < ActiveRecord::Base
   def self.transition_class
     OrderListTransition
   end
+
+  def self.initial_state
+    :pending
+  end
 end
 
 # == Schema Information
