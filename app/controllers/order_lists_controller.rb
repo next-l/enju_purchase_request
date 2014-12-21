@@ -48,7 +48,7 @@ class OrderListsController < ApplicationController
   # POST /order_lists
   # POST /order_lists.json
   def create
-    @order_list = OrderList.new(params[:order_list])
+    @order_list = OrderList.new(order_list_params)
     @order_list.user = current_user
 
     respond_to do |format|
@@ -68,7 +68,7 @@ class OrderListsController < ApplicationController
   def update
 
     respond_to do |format|
-      if @order_list.update_attributes(params[:order_list])
+      if @order_list.update_attributes(order_list_params)
         if @order_list.edit_mode == 'order'
           @order_list.transition_to(:ordered)
           @order_list.save(validate: false)
@@ -97,6 +97,12 @@ class OrderListsController < ApplicationController
   end
 
   private
+  def order_list_params
+    params.require(:order_list).permit(
+      :user_id, :bookstore_id, :title, :note, :ordered_at, :edit_mode
+    )
+  end
+
   def prepare_options
     @bookstores = Bookstore.all
   end

@@ -66,7 +66,7 @@ class OrdersController < ApplicationController
   # POST /orders
   # POST /orders.json
   def create
-    @order = Order.new(params[:order])
+    @order = Order.new(order_params)
 
     respond_to do |format|
       if @order.save
@@ -92,7 +92,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     respond_to do |format|
-      if @order.update_attributes(params[:order])
+      if @order.update_attributes(order_params)
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.order'))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
@@ -125,5 +125,10 @@ class OrdersController < ApplicationController
         format.json { head :no_content }
       end
     end
+  end
+
+  private
+  def order_params
+    params.require(:order).permit(:order_list_id, :purchase_request_id)
   end
 end

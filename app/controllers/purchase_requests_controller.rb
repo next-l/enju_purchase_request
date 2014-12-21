@@ -97,7 +97,7 @@ class PurchaseRequestsController < ApplicationController
   # POST /purchase_requests
   # POST /purchase_requests.json
   def create
-    @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
+    @purchase_request = current_user.purchase_requests.new(purchase_request_params)
 
     respond_to do |format|
       if @purchase_request.save
@@ -116,7 +116,7 @@ class PurchaseRequestsController < ApplicationController
   # PUT /purchase_requests/1.json
   def update
     respond_to do |format|
-      if @purchase_request.update_attributes(params[:purchase_request])
+      if @purchase_request.update_attributes(purchase_request_params)
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
@@ -137,5 +137,12 @@ class PurchaseRequestsController < ApplicationController
       format.html { redirect_to purchase_requests_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def purchase_request_params
+    params.require(:purchase_request).permit(
+      :title, :author, :publisher, :isbn, :price, :url, :note, :pub_date
+    )
   end
 end

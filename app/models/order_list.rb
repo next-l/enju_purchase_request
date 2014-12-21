@@ -1,7 +1,5 @@
 class OrderList < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordQueries
-  attr_accessible :user_id, :bookstore_id, :title, :note, :ordered_at,
-    :edit_mode
   scope :not_ordered, -> {in_state(:not_ordered)}
 
   has_many :orders, dependent: :destroy
