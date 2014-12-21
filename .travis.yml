@@ -1,27 +1,35 @@
 language: ruby
 rvm:
-- 1.9.3
-- 2.0.0
-- 2.1.3
+  - 1.9.3
+  - 2.0.0
+  - 2.1.5
 before_script:
-- mysql -e 'create database enju_test'
-- psql -c 'create database enju_test;' -U postgres
-- bundle exec rake db:migrate
+  - mysql -e 'create database enju_test'
+  - psql -c 'create database enju_test;' -U postgres
+  - bundle exec rake db:migrate
 services:
-- redis-server
+  - redis-server
 gemfile:
-- gemfiles/rails3_2.gemfile
-- gemfiles/rails4_1.gemfile
+  - gemfiles/rails3_2.gemfile
+  - gemfiles/rails4_1.gemfile
+  - gemfiles/rails4_2.gemfile
 env:
-- DB=sqlite
-- DB=mysql
-- DB=postgresql
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgresql
 matrix:
   exclude:
   - rvm: 1.9.3
     gemfile: gemfiles/rails4_1.gemfile
-  - rvm: 2.1.3
+  - rvm: 1.9.3
+    gemfile: gemfiles/rails4_2.gemfile
+  - rvm: 2.0.0
+    gemfile: gemfiles/rails3_2.gemfile
+  - rvm: 2.0.0
+    gemfile: gemfiles/rails4_2.gemfile
+  - rvm: 2.1.5
     gemfile: gemfiles/rails3_2.gemfile
 notifications:
   slack:
     secure: Y4M8QvIhqMoBDUu+m7vYX2m/8b8pJHsUqB0rufQCCg8zVstN6mcyG0ZZG9JFHkcQ6FV9fbLzMwUZmhqPsecaufB+1gaMl/KH+2MtqZ3O2e6pwDK8Ii22bYwHNtX2m8NSHRFPsT+wE7U46QpYAdL0x2PdyYjZeCLIvJReU1CmlsM=
+sudo: false
