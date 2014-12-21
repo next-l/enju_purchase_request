@@ -3,7 +3,6 @@ class OrderListTransition < ActiveRecord::Base
 
   
   belongs_to :order_list, inverse_of: :order_list_transitions
-  attr_accessible :to_state, :sort_key, :metadata
 end
 
 # == Schema Information
