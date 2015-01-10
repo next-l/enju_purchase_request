@@ -1,29 +1,35 @@
 class OrderList < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordModel
-  scope :not_ordered, -> {in_state(:pending)}
+  include Statesman::Adapters::ActiveRecordQueries
+  scope :not_ordered, -> {in_state(:not_ordered)}
 
-  has_many :orders, :dependent => :destroy
-  has_many :purchase_requests, :through => :orders
-  belongs_to :user, :validate => true
-  belongs_to :bookstore, :validate => true
+  has_many :orders, dependent: :destroy
+  has_many :purchase_requests, through: :orders
+  belongs_to :user, validate: true
+  belongs_to :bookstore, validate: true
   has_many :subscriptions
+
+  after_create do
+    transition_to(:not_ordered)
+  end
 
   validates_presence_of :title, :user, :bookstore
   validates_associated :user, :bookstore
 
-  paginates_per 10
+  attr_accessor :edit_mode
 
-  has_many :order_list_transitions
+  paginates_per 10
 
   def state_machine
     OrderListStateMachine.new(self, transition_class: OrderListTransition)
   end
 
+  has_many :order_list_transitions
+
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine
 
   def total_price
-    self.purchase_requests.sum(:price)
+    purchase_requests.sum(:price)
   end
 
   def order
@@ -31,12 +37,16 @@ class OrderList < ActiveRecord::Base
   end
 
   def ordered?
-    true if self.ordered_at.present?
+    true if current_state == 'ordered'
   end
 
   private
   def self.transition_class
     OrderListTransition
+  end
+
+  def self.initial_state
+    :pending
   end
 end
 
@@ -51,8 +61,6 @@ end
 #  note         :text
 #  ordered_at   :datetime
 #  deleted_at   :datetime
-#  state        :string(255)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
-

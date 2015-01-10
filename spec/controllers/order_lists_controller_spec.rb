@@ -1,6 +1,8 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe OrderListsController do
+  disconnect_sunspot
   fixtures :all
 
   describe "GET index" do
@@ -31,16 +33,16 @@ describe OrderListsController do
         sign_in FactoryGirl.create(:user)
       end
 
-      it "assigns nil as @order_lists" do
+      it "assigns empty as @order_lists" do
         get :index
-        assigns(:order_lists).should be_nil
+        assigns(:order_lists).should be_empty
       end
     end
 
     describe "When not logged in" do
-      it "assigns nil as @order_lists" do
+      it "assigns empty as @order_lists" do
         get :index
-        assigns(:order_lists).should be_nil
+        assigns(:order_lists).should be_empty
       end
     end
   end

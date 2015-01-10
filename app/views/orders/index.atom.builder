@@ -1,4 +1,4 @@
-atom_feed(:url => orders_url(:format => :atom)) do |feed|
+atom_feed(url: orders_url(format: :atom)) do |feed|
   feed.title "Orders at #{@library_group.display_name.localize}"
   feed.updated(@orders.first ? @orders.first.created_at : Time.zone.now)
 

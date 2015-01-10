@@ -1,7 +1,9 @@
 require 'spec_helper'
+require 'sunspot/rails/spec_helper'
 
 describe OrdersController do
   fixtures :all
+  disconnect_sunspot
 
   describe "GET index" do
     before(:each) do
@@ -35,17 +37,17 @@ describe OrdersController do
         sign_in FactoryGirl.create(:user)
       end
 
-      it "assigns nil as @orders" do
+      it "should be forbidden" do
         get :index
-        assigns(:orders).should be_nil
+        assigns(:orders).should be_empty
         response.should be_forbidden
       end
     end
 
     describe "When not logged in" do
-      it "assigns nil as @orders" do
+      it "assigns all orders as @orders" do
         get :index
-        assigns(:orders).should be_nil
+        assigns(:orders).should be_empty
         response.should redirect_to(new_user_session_url)
       end
     end

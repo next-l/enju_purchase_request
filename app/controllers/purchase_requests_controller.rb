@@ -1,16 +1,15 @@
 class PurchaseRequestsController < ApplicationController
-  before_action :set_purchase_request, only: [:show, :edit, :update, :destroy]
-  before_action :get_user
-  before_action :get_order_list
-  before_action :store_page, :only => :index
-  after_action :verify_authorized
-  after_action :solr_commit, :only => [:create, :update, :destroy]
-  after_action :convert_charset, :only => :index
+  load_and_authorize_resource except: :index
+  authorize_resource only: :index
+  before_filter :get_user
+  before_filter :get_order_list
+  before_filter :store_page, only: :index
+  after_filter :solr_commit, only: [:create, :update, :destroy]
+  after_filter :convert_charset, only: :index
 
   # GET /purchase_requests
   # GET /purchase_requests.json
   def index
-    authorize PurchaseRequest
     @count = {}
     if params[:format] == 'txt'
       per_page = 65534
@@ -28,7 +27,7 @@ class PurchaseRequestsController < ApplicationController
         access_denied; return
       end
       if current_user == @user
-        redirect_to purchase_requests_url(:format => params[:format])
+        redirect_to purchase_requests_url(format: params[:format])
         return
       end
     end
@@ -61,8 +60,8 @@ class PurchaseRequestsController < ApplicationController
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render :json => @purchase_requests }
-      format.rss  { render :layout => false }
+      format.json { render json: @purchase_requests }
+      format.rss  { render layout: false }
       format.atom
       format.txt
     end
@@ -71,19 +70,23 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests/1
   # GET /purchase_requests/1.json
   def show
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @purchase_request }
+    end
   end
 
   # GET /purchase_requests/new
   # GET /purchase_requests/new.json
   def new
-    @purchase_request = PurchaseRequest.new
-    authorize @purchase_request
-    @purchase_request.user = current_user
-    @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
+    @purchase_request = current_user.purchase_requests.new(params[:purchase_request])
+    if defined?(EnjuBookmark)
+      @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
+    end
 
     respond_to do |format|
       format.html # new.html.erb
-      format.json { render :json => @purchase_request }
+      format.json { render json: @purchase_request }
     end
   end
 
@@ -94,19 +97,17 @@ class PurchaseRequestsController < ApplicationController
   # POST /purchase_requests
   # POST /purchase_requests.json
   def create
-    @purchase_request = PurchaseRequest.new(purchase_request_params)
-    authorize @purchase_request
-    @purchase_request.user = current_user
+    @purchase_request = current_user.purchase_requests.new(purchase_request_params)
 
     respond_to do |format|
       if @purchase_request.save
         @order_list.purchase_requests << @purchase_request if @order_list
-        flash[:notice] = t('controller.successfully_created', :model => t('activerecord.models.purchase_request'))
+        flash[:notice] = t('controller.successfully_created', model: t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
-        format.json { render :json => @purchase_request, :status => :created, :location => @purchase_request }
+        format.json { render json: @purchase_request, status: :created, location: @purchase_request }
       else
-        format.html { render :action => "new" }
-        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
+        format.html { render action: "new" }
+        format.json { render json: @purchase_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -117,12 +118,12 @@ class PurchaseRequestsController < ApplicationController
     respond_to do |format|
       if @purchase_request.update_attributes(purchase_request_params)
         @order_list.purchase_requests << @purchase_request if @order_list
-        flash[:notice] = t('controller.successfully_updated', :model => t('activerecord.models.purchase_request'))
+        flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
         format.json { head :no_content }
       else
-        format.html { render :action => "edit" }
-        format.json { render :json => @purchase_request.errors, :status => :unprocessable_entity }
+        format.html { render action: "edit" }
+        format.json { render json: @purchase_request.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -139,15 +140,9 @@ class PurchaseRequestsController < ApplicationController
   end
 
   private
-  def set_purchase_request
-    @purchase_request = PurchaseRequest.find(params[:id])
-    authorize @purchase_request
-  end
-
   def purchase_request_params
     params.require(:purchase_request).permit(
-      :title, :author, :publisher, :isbn, :price, :url,
-      :note, :pub_date
+      :title, :author, :publisher, :isbn, :price, :url, :note, :pub_date
     )
   end
 end

@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.listing', :model => t('activerecord.models.order')) -%></h1>
+<h1 class="title"><%= t('page.listing', model: t('activerecord.models.order')) -%></h1>
 <div id="content_list">
 
 <table>
@@ -16,10 +16,10 @@
     <td><%= link_to order.purchase_request.title, purchase_request_path(order.purchase_request) -%></td>
     <td><%= l(order.updated_at) -%></td>
     <td>
-      <%- if policy(order).destroy? -%>
+      <%- if can? :delete, order -%>
         <%= link_to t('page.show'), order_path(order) -%>
         <%= link_to t('page.edit'), edit_order_path(order) -%>
-        <%= link_to t('page.destroy'), order_path(order), :data => {:confirm => t('page.are_you_sure')}, :method => :delete -%>
+        <%= link_to t('page.destroy'), order_path(order), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
       <%- end -%>
     </td>
   </tr>
@@ -33,8 +33,8 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <%- if policy(Order).create? -%>
-      <li><%= link_to t('page.new', :model => t('activerecord.models.order')), new_order_path -%></li>
+    <%- if can? :create, Order -%>
+      <li><%= link_to t('page.new', model: t('activerecord.models.order')), new_order_path -%></li>
     <%- end -%>
   </ul>
 </div>

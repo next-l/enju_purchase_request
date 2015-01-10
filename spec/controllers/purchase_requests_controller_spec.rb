@@ -437,12 +437,12 @@ describe PurchaseRequestsController do
       end
 
       it "should update my purchase_request" do
-        put :update, :id => purchase_requests(:purchase_request_00003).id, :purchase_request => {:title => 'test'}
+        put :update, :id => purchase_requests(:purchase_request_00003).id, :purchase_request => { note: "test" }
         response.should redirect_to purchase_request_url(assigns(:purchase_request))
       end
 
       it "should not update other user's purchase_request" do
-        put :update, :id => purchase_requests(:purchase_request_00002).id, :purchase_request => {:title => 'test'}
+        put :update, :id => purchase_requests(:purchase_request_00002).id, :purchase_request => { note: "test" }
         response.should be_forbidden
       end
     end

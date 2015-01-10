@@ -1,5 +1,5 @@
 <div id="content_detail" class="ui-corner-all ui-widget-content">
-<h1 class="title"><%= t('page.new', :model => t('activerecord.models.order')) -%></h1>
+<h1 class="title"><%= t('page.new', model: t('activerecord.models.order')) -%></h1>
 <div id="content_list">
 
 <%= form_for(@order) do |f| -%>
@@ -13,7 +13,7 @@
     <%= f.label t('activerecord.models.purchase_request') -%><br />
     <%- if @purchase_request -%>
       <%= link_to @purchase_request.title, @purchase_request -%>
-      <%= f.hidden_field :purchase_request_id, :value => @purchase_request.id -%>
+      <%= f.hidden_field :purchase_request_id, value: @purchase_request.id -%>
     <%- else -%>
       <%= f.text_field :purchase_request_id -%>
     <%- end -%>
