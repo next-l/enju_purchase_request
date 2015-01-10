@@ -1,5 +1,5 @@
 = EnjuPurchaseRequest
-{<img src="https://travis-ci.org/next-l/enju_purchase_request.png?branch=master" alt="Build Status" />}[http://travis-ci.org/next-l/enju_purchase_request]
+{<img src="https://travis-ci.org/next-l/enju_purchase_request.svg?branch=master" alt="Build Status" />}[http://travis-ci.org/next-l/enju_purchase_request]
 {<img src="https://img.shields.io/coveralls/next-l/enju_purchase_request.svg" alt="Coverage Status" />}[https://coveralls.io/r/next-l/enju_nii?branch=master]
 {<img src="https://hakiri.io/github/next-l/enju_purchase_request/master.svg" alt="security" />}[https://hakiri.io/github/next-l/enju_purchase_request/master]
 
