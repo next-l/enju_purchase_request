@@ -39,7 +39,7 @@ describe OrdersController do
 
       it "should be forbidden" do
         get :index
-        assigns(:orders).should be_empty
+        assigns(:orders).should be_nil
         response.should be_forbidden
       end
     end
@@ -47,7 +47,7 @@ describe OrdersController do
     describe "When not logged in" do
       it "assigns all orders as @orders" do
         get :index
-        assigns(:orders).should be_empty
+        assigns(:orders).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -143,7 +143,7 @@ describe OrdersController do
 
       it "should not assign the requested order as @order" do
         get :new, :order_list_id => 1, :purchase_request_id => 1
-        assigns(:order).should_not be_valid
+        assigns(:order).should be_nil
         response.should be_forbidden
       end
     end
@@ -151,7 +151,7 @@ describe OrdersController do
     describe "When not logged in" do
       it "should not assign the requested order as @order" do
         get :new, :order_list_id => 1, :purchase_request_id => 1
-        assigns(:order).should_not be_valid
+        assigns(:order).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -277,7 +277,7 @@ describe OrdersController do
       describe "with valid params" do
         it "assigns a newly created order as @order" do
           post :create, :order => @attrs
-          assigns(:order).should be_valid
+          assigns(:order).should be_nil
         end
 
         it "should be forbidden" do
@@ -289,7 +289,7 @@ describe OrdersController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved order as @order" do
           post :create, :order => @invalid_attrs
-          assigns(:order).should_not be_valid
+          assigns(:order).should be_nil
         end
 
         it "should be forbidden" do
@@ -303,7 +303,7 @@ describe OrdersController do
       describe "with valid params" do
         it "assigns a newly created order as @order" do
           post :create, :order => @attrs
-          assigns(:order).should be_valid
+          assigns(:order).should be_nil
         end
 
         it "should be forbidden" do
@@ -315,7 +315,7 @@ describe OrdersController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved order as @order" do
           post :create, :order => @invalid_attrs
-          assigns(:order).should_not be_valid
+          assigns(:order).should be_nil
         end
 
         it "should be forbidden" do

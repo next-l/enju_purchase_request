@@ -33,7 +33,7 @@
       <td><%= purchase_request.price -%></td>
       <td>
         <%= link_to t('page.edit'), edit_purchase_request_path(purchase_request) -%>
-        <%- if can? :delete, purchase_request %>
+        <%- if policy(purchase_request).destroy? %>
           <%= link_to t('page.destroy'), purchase_request, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
         <%- end -%>
       </td>

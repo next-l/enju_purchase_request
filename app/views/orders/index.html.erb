@@ -16,7 +16,7 @@
     <td><%= link_to order.purchase_request.title, purchase_request_path(order.purchase_request) -%></td>
     <td><%= l(order.updated_at) -%></td>
     <td>
-      <%- if can? :delete, order -%>
+      <%- if policy(order).destroy? -%>
         <%= link_to t('page.show'), order_path(order) -%>
         <%= link_to t('page.edit'), edit_order_path(order) -%>
         <%= link_to t('page.destroy'), order_path(order), data: {confirm: t('page.are_you_sure')}, method: :delete -%>
@@ -33,7 +33,7 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <%- if can? :create, Order -%>
+    <%- if policy(Order).create? -%>
       <li><%= link_to t('page.new', model: t('activerecord.models.order')), new_order_path -%></li>
     <%- end -%>
   </ul>
