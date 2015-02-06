@@ -1,11 +1,11 @@
 class PurchaseRequestsController < ApplicationController
-  load_and_authorize_resource except: :index
-  authorize_resource only: :index
-  before_filter :get_user
-  before_filter :get_order_list
-  before_filter :store_page, only: :index
-  after_filter :solr_commit, only: [:create, :update, :destroy]
-  after_filter :convert_charset, only: :index
+  before_action :set_purchase_request, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :get_user
+  before_action :get_order_list
+  before_action :store_page, only: :index
+  after_action :solr_commit, only: [:create, :update, :destroy]
+  after_action :convert_charset, only: :index
 
   # GET /purchase_requests
   # GET /purchase_requests.json
@@ -140,6 +140,15 @@ class PurchaseRequestsController < ApplicationController
   end
 
   private
+  def set_purchase_request
+    @purchase_request = PurchaseRequest.find(params[:id])
+    authorize @purchase_request
+  end
+
+  def check_policy
+    authorize PurchaseRequest
+  end
+
   def purchase_request_params
     params.require(:purchase_request).permit(
       :title, :author, :publisher, :isbn, :price, :url, :note, :pub_date
