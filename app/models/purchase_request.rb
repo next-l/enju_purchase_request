@@ -14,7 +14,7 @@ class PurchaseRequest < ActiveRecord::Base
   after_destroy :index!
   before_save :set_date_of_publication
 
-  normalize_attributes :url, :pub_date
+  strip_attributes only: [:url, :pub_date]
 
   searchable do
     text :title, :author, :publisher, :url
@@ -74,17 +74,16 @@ end
 #  title               :text             not null
 #  author              :text
 #  publisher           :text
-#  isbn                :string(255)
+#  isbn                :string
 #  date_of_publication :datetime
 #  price               :integer
-#  url                 :string(255)
+#  url                 :string
 #  note                :text
 #  accepted_at         :datetime
 #  denied_at           :datetime
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  created_at          :datetime
+#  updated_at          :datetime
 #  deleted_at          :datetime
-#  state               :string(255)
-#  pub_date            :string(255)
+#  state               :string
+#  pub_date            :string
 #
-
