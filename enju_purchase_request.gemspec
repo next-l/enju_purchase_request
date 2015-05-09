@@ -18,8 +18,8 @@ Gem::Specification.new do |s|
 
   s.add_dependency "statesman"
 
-  s.add_development_dependency "enju_leaf", "~> 1.1.0.rc17"
-  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre21"
+  s.add_development_dependency "enju_leaf", "~> 1.1.0.rc18"
+  s.add_development_dependency "enju_bookmark", "~> 0.1.2.pre22"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
   s.add_development_dependency "pg"
@@ -29,4 +29,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency "simplecov"
   s.add_development_dependency "annotate"
   s.add_development_dependency "sunspot-rails-tester"
+  s.add_development_dependency "appraisal"
 end
