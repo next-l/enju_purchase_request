@@ -150,7 +150,7 @@ class PurchaseRequestsController < ApplicationController
   end
 
   def purchase_request_params
-    params.require(:purchase_request).permit(
+    params.fetch(:purchase_request, {}).permit(
       :title, :author, :publisher, :isbn, :price, :url, :note, :pub_date
     )
   end
