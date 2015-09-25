@@ -124,6 +124,14 @@ describe PurchaseRequestsController do
         get :show, :id => purchase_requests(:purchase_request_00001).id
         response.should be_forbidden
       end
+
+      render_views
+      it "should not show add or delete order link" do
+        get :show, :id => @purchase_request.id
+        response.should be_success
+        response.body.should_not match /\/order\/new/
+        response.body.should_not match /delete.*\/order/
+      end
     end
 
     describe "When not logged in" do

@@ -77,7 +77,7 @@
 
 <div id="submenu" class="ui-corner-all ui-widget-content">
   <ul>
-    <% if can? :update, @purchase_request %>
+    <% if can? :update, Order %>
       <%- if @purchase_request.order_list -%>
         <li><%= link_to t('purchase_request.remove_from_order_list'), order_path(@purchase_request.order, order_list_id: @purchase_request.order_list.id), method: :delete, data: {confirm: t('page.are_you_sure')} -%></li>
       <%- else -%>
