@@ -1,3 +1,3 @@
 module EnjuPurchaseRequest
-  VERSION = "0.1.0.pre15"
+  VERSION = "0.1.0"
 end
