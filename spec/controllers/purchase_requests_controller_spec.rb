@@ -177,7 +177,7 @@ describe PurchaseRequestsController do
     describe "When not logged in" do
       it "should not assign the requested purchase_request as @purchase_request" do
         get :new
-        assigns(:purchase_request).should_not be_valid
+        assigns(:purchase_request).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -331,7 +331,7 @@ describe PurchaseRequestsController do
       describe "with valid params" do
         it "assigns a newly created purchase_request as @purchase_request" do
           post :create, :purchase_request => @attrs
-          assigns(:purchase_request).should_not be_valid
+          assigns(:purchase_request).should be_nil
         end
 
         it "should redirect to new_user_session_url" do
@@ -343,7 +343,7 @@ describe PurchaseRequestsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved purchase_request as @purchase_request" do
           post :create, :purchase_request => @invalid_attrs
-          assigns(:purchase_request).should_not be_valid
+          assigns(:purchase_request).should be_nil
         end
 
         it "should redirect to new_user_session_url" do

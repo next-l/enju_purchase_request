@@ -35,14 +35,14 @@ describe OrderListsController do
 
       it "assigns empty as @order_lists" do
         get :index
-        assigns(:order_lists).should be_empty
+        assigns(:order_lists).should be_nil
       end
     end
 
     describe "When not logged in" do
       it "assigns empty as @order_lists" do
         get :index
-        assigns(:order_lists).should be_empty
+        assigns(:order_lists).should be_nil
       end
     end
   end
@@ -101,7 +101,8 @@ describe OrderListsController do
 
       it "assigns the requested order_list as @order_list" do
         get :new
-        assigns(:order_list).should_not be_valid
+        assigns(:order_list).should be_nil
+        response.should be_success
       end
     end
 
@@ -112,7 +113,8 @@ describe OrderListsController do
 
       it "assigns the requested order_list as @order_list" do
         get :new
-        assigns(:order_list).should_not be_valid
+        assigns(:order_list).should be_nil
+        response.should be_success
       end
     end
 
@@ -123,7 +125,7 @@ describe OrderListsController do
 
       it "should not assign the requested order_list as @order_list" do
         get :new
-        assigns(:order_list).should_not be_valid
+        assigns(:order_list).should be_nil
         response.should be_forbidden
       end
     end
@@ -131,7 +133,7 @@ describe OrderListsController do
     describe "When not logged in" do
       it "should not assign the requested order_list as @order_list" do
         get :new
-        assigns(:order_list).should_not be_valid
+        assigns(:order_list).should be_nil
         response.should redirect_to(new_user_session_url)
       end
     end
@@ -257,7 +259,7 @@ describe OrderListsController do
       describe "with valid params" do
         it "assigns a newly created order_list as @order_list" do
           post :create, :order_list => @attrs
-          assigns(:order_list).should be_valid
+          assigns(:order_list).should be_nil
         end
 
         it "should be forbidden" do
@@ -269,7 +271,7 @@ describe OrderListsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved order_list as @order_list" do
           post :create, :order_list => @invalid_attrs
-          assigns(:order_list).should_not be_valid
+          assigns(:order_list).should be_nil
         end
 
         it "should be forbidden" do
@@ -283,7 +285,7 @@ describe OrderListsController do
       describe "with valid params" do
         it "assigns a newly created order_list as @order_list" do
           post :create, :order_list => @attrs
-          assigns(:order_list).should be_valid
+          assigns(:order_list).should be_nil
         end
 
         it "should be forbidden" do
@@ -295,7 +297,7 @@ describe OrderListsController do
       describe "with invalid params" do
         it "assigns a newly created but unsaved order_list as @order_list" do
           post :create, :order_list => @invalid_attrs
-          assigns(:order_list).should_not be_valid
+          assigns(:order_list).should be_nil
         end
 
         it "should be forbidden" do

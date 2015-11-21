@@ -1,7 +1,8 @@
 class OrdersController < ApplicationController
-  load_and_authorize_resource
-  before_filter :get_order_list
-  before_filter :get_purchase_request
+  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :get_order_list
+  before_action :get_purchase_request
 
   # GET /orders
   # GET /orders.json
@@ -128,6 +129,15 @@ class OrdersController < ApplicationController
   end
 
   private
+  def set_order
+    @order = Order.find(params[:id])
+    authorize @order
+  end
+
+  def check_policy
+    authorize Order
+  end
+
   def order_params
     params.require(:order).permit(:order_list_id, :purchase_request_id)
   end

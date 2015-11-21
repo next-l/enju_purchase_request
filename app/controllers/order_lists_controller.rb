@@ -1,7 +1,8 @@
 class OrderListsController < ApplicationController
-  load_and_authorize_resource
-  before_filter :prepare_options, only: [:new, :edit]
-  before_filter :get_bookstore, only: :index
+  before_action :set_order_list, only: [:show, :edit, :update, :destroy]
+  before_action :check_policy, only: [:index, :new, :create]
+  before_action :prepare_options, only: [:new, :edit]
+  before_action :get_bookstore, only: :index
 
   # GET /order_lists
   # GET /order_lists.json
@@ -97,6 +98,15 @@ class OrderListsController < ApplicationController
   end
 
   private
+  def set_order_list
+    @order_list = OrderList.find(params[:id])
+    authorize @order_list
+  end
+
+  def check_policy
+    authorize OrderList
+  end
+
   def order_list_params
     params.require(:order_list).permit(
       :user_id, :bookstore_id, :title, :note, :ordered_at, :edit_mode
