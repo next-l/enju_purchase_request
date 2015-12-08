@@ -22,12 +22,14 @@ describe PurchaseRequestsController do
 
       it "assigns all purchase_requests as @purchase_requests" do
         get :index
+        assigns(:purchase_requests).total_entries.should eq PurchaseRequest.count
         assigns(:purchase_requests).should_not be_empty
       end
 
-      it "should get other user's index without user_id" do
-        get :index
+      it "should get other user's index with user_id" do
+        get :index, user_id: users(:user1).username
         response.should be_success
+        assigns(:purchase_requests).total_entries.should eq users(:user1).purchase_requests.count
         assigns(:purchase_requests).should_not be_empty
       end
     end
@@ -43,29 +45,30 @@ describe PurchaseRequestsController do
       it "should be get my index without user_id" do
         get :index
         assigns(:purchase_requests).should eq users(:user1).purchase_requests
+        assigns(:purchase_requests).total_entries.should eq users(:user1).purchase_requests.count
         response.should be_success
       end
 
       it "should get my index" do
-        get :index, :user_id => users(:user1).username
+        get :index, user_id: users(:user1).username
         response.should redirect_to purchase_requests_url
         assigns(:purchase_requests).should be_nil
       end
 
       it "should get my index in csv format" do
-        get :index, :user_id => users(:user1).username, :format => 'csv'
+        get :index, user_id: users(:user1).username, :format => 'csv'
         response.should redirect_to purchase_requests_url(:format => :csv)
         assigns(:purchase_requests).should be_nil
       end
 
       it "should get my index in rss format" do
-        get :index, :user_id => users(:user1).username, :format => 'rss'
+        get :index, user_id: users(:user1).username, :format => 'rss'
         response.should redirect_to purchase_requests_url(:format => :rss)
         assigns(:purchase_requests).should be_nil
       end
 
       it "should not get other user's index" do
-        get :index, :user_id => users(:librarian1).username
+        get :index, user_id: users(:librarian1).username
         response.should be_forbidden
       end
     end
@@ -280,7 +283,7 @@ describe PurchaseRequestsController do
       end
 
       it "should create purchase_request with other user's user_id" do
-        post :create, :purchase_request => {:title => 'test', :user_id => users(:user1).id}
+        post :create, :purchase_request => {:title => 'test', user_id: users(:user1).id}
         response.should redirect_to purchase_request_url(assigns(:purchase_request))
       end
     end
@@ -313,7 +316,7 @@ describe PurchaseRequestsController do
       end
 
       it "should create purchase_request without user_id" do
-        post :create, :purchase_request => {:title => 'test', :user_id => users(:user1).id, :pub_date => 2010}
+        post :create, :purchase_request => {:title => 'test', user_id: users(:user1).id, :pub_date => 2010}
         assigns(:purchase_request).date_of_publication.should eq Time.zone.parse('2010-01-01')
         response.should redirect_to purchase_request_url(assigns(:purchase_request))
       end
