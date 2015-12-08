@@ -8,14 +8,16 @@
   <%= link_to @purchase_request.user.username, @purchase_request.user.profile -%>
 </p>
 
-<p>
-<strong><%= t('activerecord.models.order_list') -%>:</strong>
-  <%- if @purchase_request.order_list -%>
-    <%= link_to @purchase_request.order_list.title, purchase_requests_path(order_list_id: @purchase_request.order_list.id) -%>
-  <%- else -%>
-    <%= t('purchase_request.not_ordered') -%>
-  <%- end -%>
-</p>
+<% if current_user.has_role?('Librarian') %>
+  <p>
+    <strong><%= t('activerecord.models.order_list') -%>:</strong>
+    <%- if @purchase_request.order_list -%>
+      <%= link_to @purchase_request.order_list.title, purchase_requests_path(order_list_id: @purchase_request.order_list.id) -%>
+    <%- else -%>
+      <%= t('purchase_request.not_ordered') -%>
+    <%- end -%>
+  </p>
+<% end %>
 
 <p>
   <strong><%= t('activerecord.attributes.purchase_request.title') -%>:</strong>
@@ -57,18 +59,20 @@
   <%= @purchase_request.note -%>
 </p>
 
-<p>
-  <strong><%= t('activerecord.attributes.order_list.ordered_at') -%>:</strong>
-  <%= l(@purchase_request.order_list.ordered_at) if @purchase_request.order_list rescue nil -%>
-</p>
+<% if current_user.has_role?('Librarian') %>
+  <p>
+    <strong><%= t('activerecord.attributes.order_list.ordered_at') -%>:</strong>
+    <%= l(@purchase_request.order_list.ordered_at) if @purchase_request.order_list rescue nil -%>
+  </p>
+<% end %>
 
 <p>
-<strong><%= t('page.created_at') -%>:</strong>
+  <strong><%= t('page.created_at') -%>:</strong>
   <%= l(@purchase_request.created_at) -%>
 </p>
 
 <p>
-<strong><%= t('page.updated_at') -%>:</strong>
+  <strong><%= t('page.updated_at') -%>:</strong>
   <%= l(@purchase_request.updated_at) -%>
 </p>
 
