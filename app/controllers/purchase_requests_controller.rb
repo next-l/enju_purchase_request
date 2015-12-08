@@ -39,7 +39,9 @@ class PurchaseRequestsController < ApplicationController
       if user
         with(:user_id).equal_to user.id
       else
-        with(:user_id).equal_to current_user.id
+        unless current_user.has_role?('Librarian')
+          with(:user_id).equal_to current_user.id
+        end
       end
       with(:order_list_id).equal_to order_list.id if order_list
       case mode
