@@ -27,8 +27,10 @@
         <%= purchase_request.author -%>
         <%= purchase_request.publisher -%>
         <%= purchase_request.pub_date -%>
-        <br />
-        <%= t('activerecord.models.order_list') %>: <%= link_to purchase_request.order_list.title, purchase_requests_path(order_list_id: purchase_request.order_list.id) if purchase_request.order_list -%>
+        <% if current_user.has_role?('Librarian') %>
+          <br />
+          <%= t('activerecord.models.order_list') %>: <%= link_to purchase_request.order_list.title, purchase_requests_path(order_list_id: purchase_request.order_list.id) if purchase_request.order_list -%>
+        <% end %>
       </td>
       <td><%= purchase_request.price -%></td>
       <td>
