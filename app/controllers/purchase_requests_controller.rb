@@ -23,6 +23,9 @@ class PurchaseRequestsController < ApplicationController
 
     user = @user
     unless current_user.has_role?('Librarian')
+      if @order_list
+        access_denied; return
+      end
       if user and user != current_user
         access_denied; return
       end
