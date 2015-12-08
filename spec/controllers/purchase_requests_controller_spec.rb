@@ -32,6 +32,13 @@ describe PurchaseRequestsController do
         assigns(:purchase_requests).total_entries.should eq users(:user1).purchase_requests.count
         assigns(:purchase_requests).should_not be_empty
       end
+
+      it "should get other user's index with order_list_id" do
+        get :index, order_list_id: 1
+        response.should be_success
+        assigns(:purchase_requests).total_entries.should eq order_lists(:order_list_00001).purchase_requests.count
+        assigns(:purchase_requests).should_not be_empty
+      end
     end
 
     describe "When logged in as User" do
@@ -52,6 +59,12 @@ describe PurchaseRequestsController do
       it "should get my index" do
         get :index, user_id: users(:user1).username
         response.should redirect_to purchase_requests_url
+        assigns(:purchase_requests).should be_nil
+      end
+
+      it "should not get index with order_list_id" do
+        get :index, order_list_id: 1
+        response.should be_forbidden
         assigns(:purchase_requests).should be_nil
       end
 
