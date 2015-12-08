@@ -1,6 +1,5 @@
 require "enju_purchase_request/engine"
 require "enju_purchase_request/bookmark_url"
-require "enju_purchase_request/user"
 
 module EnjuPurchaseRequest
   def self.included(base)
@@ -33,4 +32,3 @@ module EnjuPurchaseRequest
 end
 
 ActionController::Base.send(:include, EnjuPurchaseRequest)
-ActiveRecord::Base.send :include, EnjuPurchaseRequest::PurchaseRequestUser
