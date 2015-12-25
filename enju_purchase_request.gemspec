@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "statesman", "~> 1.3"
 
-  s.add_development_dependency "enju_leaf", "~> 1.1.0"
+  s.add_development_dependency "enju_leaf", "~> 1.1.2"
   s.add_development_dependency "enju_bookmark", "~> 0.1.2"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "mysql2"
