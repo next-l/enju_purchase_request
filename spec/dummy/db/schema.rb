@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150305030046) do
+ActiveRecord::Schema.define(version: 20160703190738) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -618,6 +618,7 @@ ActiveRecord::Schema.define(version: 20150305030046) do
     t.integer  "order_list_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "order_list_transitions", ["order_list_id"], name: "index_order_list_transitions_on_order_list_id"
