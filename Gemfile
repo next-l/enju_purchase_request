@@ -11,7 +11,6 @@ gemspec
 # your gem to rubygems.org.
 gem 'enju_leaf', github: 'next-l/enju_leaf', branch: '1.2'
 gem 'enju_seed', github: 'next-l/enju_seed', branch: '1.2'
-gem 'enju_bookmark', github: 'next-l/enju_bookmark', branch: '1.2'
 gem 'jquery-rails'
 
 # To use debugger
