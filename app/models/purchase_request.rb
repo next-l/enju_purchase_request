@@ -74,17 +74,16 @@ end
 #  title               :text             not null
 #  author              :text
 #  publisher           :text
-#  isbn                :string(255)
+#  isbn                :string
 #  date_of_publication :datetime
 #  price               :integer
-#  url                 :string(255)
+#  url                 :string
 #  note                :text
 #  accepted_at         :datetime
 #  denied_at           :datetime
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  created_at          :datetime
+#  updated_at          :datetime
 #  deleted_at          :datetime
-#  state               :string(255)
-#  pub_date            :string(255)
+#  state               :string
+#  pub_date            :string
 #
-

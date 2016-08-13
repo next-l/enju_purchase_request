@@ -14,8 +14,7 @@ end
 #  order_list_id       :integer          not null
 #  purchase_request_id :integer          not null
 #  position            :integer
-#  state               :string(255)
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
+#  state               :string
+#  created_at          :datetime
+#  updated_at          :datetime
 #
-
