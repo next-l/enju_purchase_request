@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160813203039) do
+ActiveRecord::Schema.define(version: 20160815045420) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -195,6 +195,7 @@ ActiveRecord::Schema.define(version: 20160813203039) do
     t.integer  "bookmark_stat_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "most_recent"
   end
 
   add_index "bookmark_stat_transitions", ["bookmark_stat_id"], name: "index_bookmark_stat_transitions_on_bookmark_stat_id"
@@ -206,12 +207,9 @@ ActiveRecord::Schema.define(version: 20160813203039) do
     t.datetime "started_at"
     t.datetime "completed_at"
     t.text     "note"
-    t.string   "state"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "bookmark_stats", ["state"], name: "index_bookmark_stats_on_state"
 
   create_table "bookmarks", force: :cascade do |t|
     t.integer  "user_id",          null: false
@@ -629,6 +627,75 @@ ActiveRecord::Schema.define(version: 20160813203039) do
     t.datetime "updated_at"
   end
 
+  create_table "message_request_transitions", force: :cascade do |t|
+    t.string   "to_state"
+    t.text     "metadata",           default: "{}"
+    t.integer  "sort_key"
+    t.integer  "message_request_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "most_recent"
+  end
+
+  add_index "message_request_transitions", ["message_request_id"], name: "index_message_request_transitions_on_message_request_id"
+  add_index "message_request_transitions", ["sort_key", "message_request_id"], name: "index_message_request_transitions_on_sort_key_and_request_id", unique: true
+
+  create_table "message_requests", force: :cascade do |t|
+    t.integer  "sender_id"
+    t.integer  "receiver_id"
+    t.integer  "message_template_id"
+    t.datetime "sent_at"
+    t.datetime "deleted_at"
+    t.text     "body"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "message_templates", force: :cascade do |t|
+    t.string   "status",                    null: false
+    t.text     "title",                     null: false
+    t.text     "body",                      null: false
+    t.integer  "position"
+    t.string   "locale",     default: "en"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "message_templates", ["status"], name: "index_message_templates_on_status", unique: true
+
+  create_table "message_transitions", force: :cascade do |t|
+    t.string   "to_state"
+    t.text     "metadata",    default: "{}"
+    t.integer  "sort_key"
+    t.integer  "message_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "most_recent"
+  end
+
+  add_index "message_transitions", ["message_id"], name: "index_message_transitions_on_message_id"
+  add_index "message_transitions", ["sort_key", "message_id"], name: "index_message_transitions_on_sort_key_and_message_id", unique: true
+
+  create_table "messages", force: :cascade do |t|
+    t.datetime "read_at"
+    t.integer  "receiver_id"
+    t.integer  "sender_id"
+    t.string   "subject",            null: false
+    t.text     "body"
+    t.integer  "message_request_id"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "depth"
+  end
+
+  add_index "messages", ["message_request_id"], name: "index_messages_on_message_request_id"
+  add_index "messages", ["parent_id"], name: "index_messages_on_parent_id"
+  add_index "messages", ["receiver_id"], name: "index_messages_on_receiver_id"
+  add_index "messages", ["sender_id"], name: "index_messages_on_sender_id"
+
   create_table "order_list_transitions", force: :cascade do |t|
     t.string   "to_state"
     t.text     "metadata",      default: "{}"
@@ -986,7 +1053,7 @@ ActiveRecord::Schema.define(version: 20160813203039) do
     t.datetime "created_at"
   end
 
-  add_index "taggings", ["tag_id"], name: "index_taggings_on_tag_id"
+  add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
   create_table "tags", force: :cascade do |t|
@@ -996,6 +1063,8 @@ ActiveRecord::Schema.define(version: 20160813203039) do
     t.datetime "updated_at"
     t.integer  "taggings_count",     default: 0
   end
+
+  add_index "tags", ["name"], name: "index_tags_on_name", unique: true
 
   create_table "user_export_file_transitions", force: :cascade do |t|
     t.string   "to_state"
