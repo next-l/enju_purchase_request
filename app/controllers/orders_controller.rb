@@ -1,8 +1,8 @@
 class OrdersController < ApplicationController
   before_action :set_order, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :get_order_list
-  before_action :get_purchase_request
+  before_action :set_order_list
+  before_action :set_purchase_request
 
   # GET /orders
   # GET /orders.json
