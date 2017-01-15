@@ -4,8 +4,8 @@ class OrderList < ActiveRecord::Base
 
   has_many :orders, dependent: :destroy
   has_many :purchase_requests, through: :orders
-  belongs_to :user, validate: true
-  belongs_to :bookstore, validate: true
+  belongs_to :user
+  belongs_to :bookstore
   has_many :subscriptions
 
   after_create do
