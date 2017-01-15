@@ -10,10 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161114083857) do
+ActiveRecord::Schema.define(version: 20161115184756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+  enable_extension "pgcrypto"
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -27,7 +28,7 @@ ActiveRecord::Schema.define(version: 20161114083857) do
 
   create_table "agent_import_file_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",             default: "{}"
+    t.jsonb    "metadata",             default: "{}"
     t.integer  "sort_key"
     t.integer  "agent_import_file_id"
     t.datetime "created_at"
@@ -418,7 +419,7 @@ ActiveRecord::Schema.define(version: 20161114083857) do
 
   create_table "import_request_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",          default: "{}"
+    t.jsonb    "metadata",          default: "{}"
     t.integer  "sort_key"
     t.integer  "import_request_id"
     t.datetime "created_at"
@@ -538,21 +539,23 @@ ActiveRecord::Schema.define(version: 20161114083857) do
     t.string   "name",                                                             null: false
     t.text     "display_name"
     t.string   "short_name",                                                       null: false
-    t.text     "my_networks"
+    t.cidr     "my_networks"
     t.text     "login_banner"
     t.text     "note"
     t.integer  "country_id"
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.text     "admin_networks"
+    t.cidr     "admin_networks"
     t.boolean  "allow_bookmark_external_url",   default: false,                    null: false
     t.string   "url",                           default: "http://localhost:3000/"
     t.jsonb    "settings"
     t.jsonb    "footer_banner"
     t.text     "html_snippet"
+    t.string   "book_jacket_source"
     t.integer  "max_number_of_results",         default: 500
     t.boolean  "family_name_first",             default: true
+    t.string   "screenshot_generator"
     t.integer  "pub_year_facet_range_interval", default: 10
     t.integer  "user_id"
     t.index ["short_name"], name: "index_library_groups_on_short_name", using: :btree
@@ -843,7 +846,7 @@ ActiveRecord::Schema.define(version: 20161114083857) do
 
   create_table "resource_export_file_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",                default: "{}"
+    t.jsonb    "metadata",                default: "{}"
     t.integer  "sort_key"
     t.integer  "resource_export_file_id"
     t.datetime "created_at"
@@ -867,7 +870,7 @@ ActiveRecord::Schema.define(version: 20161114083857) do
 
   create_table "resource_import_file_transitions", force: :cascade do |t|
     t.string   "to_state"
-    t.text     "metadata",                default: "{}"
+    t.jsonb    "metadata",                default: "{}"
     t.integer  "sort_key"
     t.integer  "resource_import_file_id"
     t.datetime "created_at"
@@ -1055,6 +1058,7 @@ ActiveRecord::Schema.define(version: 20161114083857) do
     t.string   "user_export_id"
     t.integer  "user_export_size"
     t.string   "user_import_filename"
+    t.jsonb    "attachment_data"
     t.index ["user_export_id"], name: "index_user_export_files_on_user_export_id", using: :btree
   end
 
@@ -1106,6 +1110,7 @@ ActiveRecord::Schema.define(version: 20161114083857) do
     t.string   "user_encoding"
     t.integer  "default_library_id"
     t.integer  "default_user_group_id"
+    t.jsonb    "attachment_data"
   end
 
   create_table "user_import_results", force: :cascade do |t|
