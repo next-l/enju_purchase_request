@@ -10,7 +10,7 @@ xml.rss('version' => "2.0",
       xml.tag! "atom:link", rel: 'self', href: purchase_requests_url(user_id: @user.username, format: :rss)
       xml.tag! "atom:link", rel: 'alternate', href: purchase_requests_url(user_id: @user.username)
     else
-      xml.title t('purchase_request.library_group_purchase_request', library_group_name: @library_group.display_name.localize)
+      xml.title t('purchase_request.library_group_purchase_request', library_group_name: @library_group.display_name)
       xml.link purchase_requests_url
       xml.tag! "atom:link", rel: 'self', href: purchase_requests_url(format: :rss)
       xml.tag! "atom:link", rel: 'alternate', href: purchase_requests_url

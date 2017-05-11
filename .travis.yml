@@ -15,6 +15,7 @@ env:
 notifications:
   slack:
     secure: Y4M8QvIhqMoBDUu+m7vYX2m/8b8pJHsUqB0rufQCCg8zVstN6mcyG0ZZG9JFHkcQ6FV9fbLzMwUZmhqPsecaufB+1gaMl/KH+2MtqZ3O2e6pwDK8Ii22bYwHNtX2m8NSHRFPsT+wE7U46QpYAdL0x2PdyYjZeCLIvJReU1CmlsM=
+dist: trusty
 sudo: false
 addons:
   postgresql: "9.4"
