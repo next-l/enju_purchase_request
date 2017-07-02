@@ -3,7 +3,7 @@ require_relative 'boot'
 require 'rails/all'
 
 Bundler.require(*Rails.groups)
-require "enju_purchae_request"
+require "enju_purchase_request"
 
 module Dummy
   class Application < Rails::Application
