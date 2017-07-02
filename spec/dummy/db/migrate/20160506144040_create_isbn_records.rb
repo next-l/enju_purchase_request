@@ -1,4 +1,4 @@
-class CreateIsbnRecords < ActiveRecord::Migration
+class CreateIsbnRecords < ActiveRecord::Migration[5.0]
   def change
     create_table :isbn_records do |t|
       t.string :body, index: true, null: false

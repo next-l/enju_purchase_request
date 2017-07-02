@@ -1,4 +1,4 @@
-class CreateOrderListTransitions < ActiveRecord::Migration
+class CreateOrderListTransitions < ActiveRecord::Migration[5.0]
   def change
     create_table :order_list_transitions do |t|
       t.string :to_state
