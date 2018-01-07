@@ -23,7 +23,7 @@ class OrderList < ActiveRecord::Base
     OrderListStateMachine.new(self, transition_class: OrderListTransition)
   end
 
-  has_many :order_list_transitions
+  has_many :order_list_transitions, autosave: false
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine
