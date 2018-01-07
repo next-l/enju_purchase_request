@@ -28,5 +28,5 @@ order_list_transition_00003:
 #  order_list_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
-#  most_recent   :boolean
+#  most_recent   :boolean          not null
 #

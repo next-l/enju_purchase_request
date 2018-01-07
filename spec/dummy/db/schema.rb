@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180102162311) do
+ActiveRecord::Schema.define(version: 20180107155817) do
 
   create_table "accepts", force: :cascade do |t|
     t.integer  "basket_id"
@@ -718,9 +718,10 @@ ActiveRecord::Schema.define(version: 20180102162311) do
     t.integer  "order_list_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "most_recent"
+    t.boolean  "most_recent",                  null: false
   end
 
+  add_index "order_list_transitions", ["order_list_id", "most_recent"], name: "index_order_list_transitions_parent_most_recent", unique: true
   add_index "order_list_transitions", ["order_list_id"], name: "index_order_list_transitions_on_order_list_id"
   add_index "order_list_transitions", ["sort_key", "order_list_id"], name: "index_order_list_transitions_on_sort_key_and_order_list_id", unique: true
 
