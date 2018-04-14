@@ -15,7 +15,6 @@ gem "enju_biblio", github: "next-l/enju_biblio"
 gem "enju_library", github: "next-l/enju_library"
 gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
 gem "enju_bookmark", github: "next-l/enju_bookmark"
-gem "codeclimate-test-reporter", group: :test, require: false
 gem "jquery-rails"
 gem "jquery-ui-rails", "~> 4.2"
 gem "rails-controller-testing"
