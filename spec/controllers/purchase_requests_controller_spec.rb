@@ -244,7 +244,7 @@ describe PurchaseRequestsController do
 
   describe 'POST create' do
     before(:each) do
-      @attrs = FactoryGirl.attributes_for(:purchase_request)
+      @attrs = FactoryBot.attributes_for(:purchase_request)
       @invalid_attrs = { title: '' }
     end
 
@@ -373,13 +373,13 @@ describe PurchaseRequestsController do
   describe 'PUT update' do
     before(:each) do
       @purchase_request = purchase_requests(:purchase_request_00001)
-      @attrs = FactoryGirl.attributes_for(:purchase_request)
+      @attrs = FactoryBot.attributes_for(:purchase_request)
       @invalid_attrs = { title: '' }
     end
 
     describe 'When logged in as Administrator' do
       before(:each) do
-        @user = FactoryGirl.create(:admin)
+        @user = FactoryBot.create(:admin)
         sign_in @user
       end
 
@@ -409,7 +409,7 @@ describe PurchaseRequestsController do
 
     describe 'When logged in as Librarian' do
       before(:each) do
-        @user = FactoryGirl.create(:librarian)
+        @user = FactoryBot.create(:librarian)
         sign_in @user
       end
 
