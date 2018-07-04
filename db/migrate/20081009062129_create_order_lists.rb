@@ -1,4 +1,4 @@
-class CreateOrderLists < ActiveRecord::Migration
+class CreateOrderLists < ActiveRecord::Migration[4.2]
   def self.up
     create_table :order_lists do |t|
       t.integer :user_id, :null => false

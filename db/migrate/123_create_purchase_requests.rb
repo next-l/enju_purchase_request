@@ -1,4 +1,4 @@
-class CreatePurchaseRequests < ActiveRecord::Migration
+class CreatePurchaseRequests < ActiveRecord::Migration[4.2]
   def self.up
     create_table :purchase_requests do |t|
       t.integer :user_id, :null => false
