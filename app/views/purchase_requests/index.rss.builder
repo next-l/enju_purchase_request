@@ -17,17 +17,17 @@ xml.rss('version' => "2.0",
     end
     xml.language @locale.to_s
     xml.ttl "60"
-    #xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: "http://#{request.host_with_port}/page/opensearch"
+    # xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: "http://#{request.host_with_port}/page/opensearch"
     unless params[:query].blank?
       xml.tag! "opensearch:totalResults", @count[:query_result]
       xml.tag! "opensearch:startIndex", @purchase_requests.offset + 1
       xml.tag! "opensearch:itemsPerPage", @purchase_requests.per_page
-      #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
+      # xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
     @purchase_requests.each do |purchase_request|
       xml.item do
         xml.title purchase_request.title
-        #xml.description(purchase_request.title)
+        # xml.description(purchase_request.title)
         # rfc822
         xml.pubDate purchase_request.created_at.utc.rfc822
         xml.link purchase_request_url(purchase_request)

@@ -10,17 +10,17 @@ xml.rss('version' => "2.0",
     xml.ttl "60"
     xml.tag! "atom:link", rel: 'self', href: order_lists_url(format: :rss)
     xml.tag! "atom:link", rel: 'alternate', href: order_lists_url
-    #xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: "http://#{request.host_with_port}/page/opensearch"
+    # xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: "http://#{request.host_with_port}/page/opensearch"
     unless params[:query].blank?
       xml.tag! "opensearch:totalResults", @count[:query_result]
       xml.tag! "opensearch:startIndex", @order_lists.offset + 1
       xml.tag! "opensearch:itemsPerPage", @order_lists.per_page
-      #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
+      # xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
     @order_lists.each do |order_list|
       xml.item do
         xml.title order_list.title
-        #xml.description(order_list.title)
+        # xml.description(order_list.title)
         # rfc822
         xml.pubDate order_list.created_at.utc.rfc822
         xml.link order_list_url(order_list)

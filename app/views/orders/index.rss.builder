@@ -17,17 +17,17 @@ xml.rss('version' => "2.0",
     xml.description "Next-L Enju, an open source integrated library system developed by Project Next-L"
     xml.language @locale.to_s
     xml.ttl "60"
-    #xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: "http://#{request.host_with_port}/page/opensearch"
+    # xml.tag! "atom:link", rel: 'search', :type => 'application/opensearchdescription+xml', href: "http://#{request.host_with_port}/page/opensearch"
     unless params[:query].blank?
       xml.tag! "opensearch:totalResults", @count[:query_result]
       xml.tag! "opensearch:startIndex", @orders.offset_value + 1
       xml.tag! "opensearch:itemsPerPage", @orders.limit_value
-      #xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
+      # xml.tag! "opensearch:Query", :role => 'request', :searchTerms => params[:query], :startPage => (params[:page] || 1)
     end
     @orders.each do |order|
       xml.item do
         xml.title order.order_list.title
-        #xml.description(order.title)
+        # xml.description(order.title)
         # rfc822
         xml.pubDate order.created_at.utc.rfc822
         xml.link order_url(order)
