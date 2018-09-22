@@ -4,6 +4,7 @@ require 'rails/all'
 
 Bundler.require(*Rails.groups)
 require "enju_purchase_request"
+require "enju_leaf"
 
 module Dummy
   class Application < Rails::Application
