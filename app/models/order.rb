@@ -1,6 +1,6 @@
 class Order < ActiveRecord::Base
-  belongs_to :order_list
-  belongs_to :purchase_request
+  belongs_to :order_list, validate: true
+  belongs_to :purchase_request, validate: true
 
   validates_associated :order_list, :purchase_request
   validates_presence_of :order_list, :purchase_request

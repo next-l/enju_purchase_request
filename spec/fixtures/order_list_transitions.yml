@@ -3,16 +3,19 @@ order_list_transition_00001:
   to_state: not_ordered
   order_list_id: 1
   sort_key: 0
+  most_recent: true
 order_list_transition_00002:
   id: 2
   to_state: not_ordered
   order_list_id: 2
   sort_key: 0
+  most_recent: true
 order_list_transition_00003:
   id: 3
   to_state: not_ordered
   order_list_id: 3
   sort_key: 0
+  most_recent: true
 
 # == Schema Information
 #
@@ -25,4 +28,5 @@ order_list_transition_00003:
 #  order_list_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
+#  most_recent   :boolean          not null
 #

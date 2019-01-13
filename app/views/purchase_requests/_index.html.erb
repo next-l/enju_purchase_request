@@ -34,7 +34,9 @@
       </td>
       <td><%= purchase_request.price -%></td>
       <td>
-        <%= link_to t('page.edit'), edit_purchase_request_path(purchase_request) -%>
+        <%- if policy(purchase_request).update? %>
+          <%= link_to t('page.edit'), edit_purchase_request_path(purchase_request) -%>
+        <% end %>
         <%- if policy(purchase_request).destroy? %>
           <%= link_to t('page.destroy'), purchase_request, data: {confirm: t('page.are_you_sure')}, method: :delete -%>
         <%- end -%>
@@ -67,14 +69,14 @@
   </ul>
 <p>
   <%- if @user -%>
-    <%= link_to (image_tag 'icons/feed.png', size: '16x16', alt: t('page.feed'), class: 'icon'), purchase_requests_path(user_id: @user.username, format: :rss, locale: @locale.to_s) -%>
+    <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), purchase_requests_path(user_id: @user.username, format: :rss, locale: @locale.to_s) -%>
     (<%= link_to 'RSS', purchase_requests_path(user_id: @user.username, format: :rss, locale: @locale.to_s) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), purchase_requests_path(user_id: @user.username, format: :txt) -%>
+    <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), purchase_requests_path(user_id: @user.username, format: :txt) -%>
     (<%= link_to 'TSV', purchase_requests_path(user_id: @user.username, format: :txt) -%>)
   <%- else -%>
-    <%= link_to (image_tag 'icons/feed.png', size: '16x16', alt: t('page.feed'), class: 'icon'), purchase_requests_path(format: :rss, locale: @locale.to_s) -%>
+    <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), purchase_requests_path(format: :rss, locale: @locale.to_s) -%>
     (<%= link_to 'RSS', purchase_requests_path(format: :rss, locale: @locale.to_s) -%>)
-    <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), purchase_requests_path(format: :txt) -%>
+    <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), purchase_requests_path(format: :txt) -%>
     (<%= link_to 'TSV', purchase_requests_path(format: :txt) -%>)
   <%- end -%>
 </p>

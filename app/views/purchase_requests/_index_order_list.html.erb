@@ -39,7 +39,9 @@
       </td>
       <td><%= purchase_request.price -%></td>
       <td>
-        <%= link_to t('page.edit'), edit_purchase_request_path(purchase_request) -%>
+        <%- if policy(purchase_request).update? -%>
+          <%= link_to t('page.edit'), edit_purchase_request_path(purchase_request) -%>
+        <% end %>
         <%- if policy(purchase_request).destroy? -%>
           <%- if params[:mode] == "add" -%>
             <%= link_to t('page.add'), new_purchase_request_path(order_list_id: @order_list, purchase_request_id: purchase_request.id, mode: 'add') -%>
@@ -67,9 +69,9 @@
   </ul>
   <% if @order_list.ordered? %>
     <p>
-      <%= link_to (image_tag 'icons/feed.png', size: '16x16', alt: t('page.feed'), class: 'icon'), purchase_requests_path(order_list_id: @order_list.id, format: :rss) -%>
+      <%= link_to image_tag('icons/feed.png', size: '16x16', class: 'enju_icon', alt: t('page.feed')), purchase_requests_path(order_list_id: @order_list.id, format: :rss) -%>
       (<%= link_to 'RSS', purchase_requests_path(order_list_id: @order_list.id, format: :rss) -%>)
-      <%= link_to (image_tag 'icons/page_white_excel.png', size: '16x16', alt: 'TSV', class: 'icon'), purchase_requests_path(order_list_id: @order_list.id, format: :txt) -%>
+      <%= link_to image_tag('icons/page_white_excel.png', size: '16x16', class: 'enju_icon', alt: 'TSV'), purchase_requests_path(order_list_id: @order_list.id, format: :txt) -%>
       (<%= link_to 'TSV', purchase_requests_path(order_list_id: @order_list.id, format: :txt) -%>)
     </p>
   <% end %>

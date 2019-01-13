@@ -4,8 +4,8 @@ class OrderList < ActiveRecord::Base
 
   has_many :orders, dependent: :destroy
   has_many :purchase_requests, through: :orders
-  belongs_to :user
-  belongs_to :bookstore
+  belongs_to :user, validate: true
+  belongs_to :bookstore, validate: true
   has_many :subscriptions
 
   after_create do
@@ -23,7 +23,7 @@ class OrderList < ActiveRecord::Base
     OrderListStateMachine.new(self, transition_class: OrderListTransition)
   end
 
-  has_many :order_list_transitions
+  has_many :order_list_transitions, autosave: false
 
   delegate :can_transition_to?, :transition_to!, :transition_to, :current_state,
     to: :state_machine

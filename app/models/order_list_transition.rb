@@ -16,4 +16,5 @@ end
 #  order_list_id :integer
 #  created_at    :datetime
 #  updated_at    :datetime
+#  most_recent   :boolean          not null
 #

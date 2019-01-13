@@ -2,7 +2,7 @@ class OrderListsController < ApplicationController
   before_action :set_order_list, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
   before_action :prepare_options, only: [:new, :edit]
-  before_action :set_bookstore, only: :index
+  before_action :get_bookstore, only: :index
 
   # GET /order_lists
   # GET /order_lists.json
@@ -33,8 +33,6 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new
   # GET /order_lists/new.json
   def new
-    @order_list = OrderList.new
-
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @order_list }
@@ -116,6 +114,6 @@ class OrderListsController < ApplicationController
   end
 
   def prepare_options
-    @bookstores = Bookstore.order(:position)
+    @bookstores = Bookstore.all
   end
 end

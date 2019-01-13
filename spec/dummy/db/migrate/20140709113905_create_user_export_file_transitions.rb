@@ -1,4 +1,4 @@
-class CreateUserExportFileTransitions < ActiveRecord::Migration[5.0]
+class CreateUserExportFileTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :user_export_file_transitions do |t|
       t.string :to_state
@@ -8,7 +8,7 @@ class CreateUserExportFileTransitions < ActiveRecord::Migration[5.0]
         t.text :metadata, default: "{}"
       end
       t.integer :sort_key
-      t.integer :user_export_file_id
+      t.references :user_export_file, index: true
       t.timestamps
     end
 

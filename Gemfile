@@ -19,6 +19,8 @@ gem "enju_bookmark", github: "next-l/enju_bookmark"
 gem "jquery-rails"
 gem "jquery-ui-rails", "~> 4.2"
 gem "rails-controller-testing"
+gem 'mobility'
+gem 'rspec_junit_formatter'
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]

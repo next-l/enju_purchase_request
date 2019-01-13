@@ -1,8 +1,9 @@
 class PurchaseRequestsController < ApplicationController
+  before_action :store_page, only: :index
   before_action :set_purchase_request, only: [:show, :edit, :update, :destroy]
   before_action :check_policy, only: [:index, :new, :create]
-  before_action :set_user
-  before_action :set_order_list
+  before_action :get_user
+  before_action :get_order_list
   after_action :convert_charset, only: :index
 
   # GET /purchase_requests

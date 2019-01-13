@@ -3,7 +3,7 @@ require 'rails_helper'
 describe OrderList do
   fixtures :all
 
-  it 'should calculate total price' do
+  it "should calculate total price" do
     order_list = order_lists(:order_list_00001)
     order_list.total_price.should eq 0
     order_list.purchase_requests << purchase_requests(:purchase_request_00006)
