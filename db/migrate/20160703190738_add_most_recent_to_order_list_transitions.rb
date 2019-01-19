@@ -1,4 +1,4 @@
-class AddMostRecentToOrderListTransitions < ActiveRecord::Migration[5.0]
+class AddMostRecentToOrderListTransitions < ActiveRecord::Migration[5.2]
   def up
     add_column :order_list_transitions, :most_recent, :boolean, null: true
   end

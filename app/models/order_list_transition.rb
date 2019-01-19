@@ -9,12 +9,12 @@ end
 #
 # Table name: order_list_transitions
 #
-#  id            :integer          not null, primary key
+#  id            :bigint(8)        not null, primary key
 #  to_state      :string
 #  metadata      :text             default({})
 #  sort_key      :integer
 #  order_list_id :integer
-#  created_at    :datetime
-#  updated_at    :datetime
-#  most_recent   :boolean          not null
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  most_recent   :boolean
 #

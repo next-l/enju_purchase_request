@@ -1,8 +1,8 @@
-class CreatePurchaseRequests < ActiveRecord::Migration[5.0]
-  def self.up
+class CreatePurchaseRequests < ActiveRecord::Migration[5.2]
+  def change
     create_table :purchase_requests do |t|
-      t.integer :user_id, :null => false
-      t.text :title, :null => false
+      t.references :user, foreign_key: true
+      t.text :title, null: false
       t.text :author
       t.text :publisher
       t.string :isbn
@@ -12,19 +12,10 @@ class CreatePurchaseRequests < ActiveRecord::Migration[5.0]
       t.text :note
       t.datetime :accepted_at
       t.datetime :denied_at
-      t.datetime :created_at
-      t.datetime :updated_at
-      t.datetime :deleted_at
-      t.string :state
+      t.string :state, index: true
       t.string :pub_date
 
       t.timestamps
     end
-    add_index :purchase_requests, :user_id
-    add_index :purchase_requests, :state
-  end
-
-  def self.down
-    drop_table :purchase_requests
   end
 end
