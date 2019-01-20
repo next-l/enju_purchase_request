@@ -10,7 +10,6 @@ require 'spec_helper'
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'factory_bot'
-require 'sunspot-rails-tester'
 require 'rspec/active_model/mocks'
 require 'pundit/rspec'
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
@@ -58,7 +57,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  config.extend ControllerMacros, :type => :controller
+  config.extend ControllerMacros, type: :controller
 
   $original_sunspot_session = Sunspot.session
 
@@ -66,8 +65,7 @@ RSpec.configure do |config|
     Sunspot.session = Sunspot::Rails::StubSessionProxy.new($original_sunspot_session)
   end
 
-  config.before :each, :solr => true do
-    Sunspot::Rails::Tester.start_original_sunspot_session
+  config.before :each, solr: true do
     Sunspot.session = $original_sunspot_session
     Sunspot.remove_all!
   end
