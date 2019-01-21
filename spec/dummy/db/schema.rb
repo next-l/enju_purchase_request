@@ -624,11 +624,11 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.index ["manifestation_id"], name: "index_identifiers_on_manifestation_id"
   end
 
-  create_table "identities", id: :serial, force: :cascade do |t|
+  create_table "identities", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
-    t.integer "profile_id"
+    t.bigint "profile_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "provider"
@@ -1163,18 +1163,17 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.index ["manifestation_id"], name: "index_produces_on_manifestation_id"
   end
 
-  create_table "profiles", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "user_group_id"
-    t.integer "library_id"
+  create_table "profiles", force: :cascade do |t|
+    t.bigint "user_group_id"
+    t.bigint "library_id"
     t.string "locale"
     t.string "user_number"
     t.text "full_name"
     t.text "note"
     t.text "keyword_list"
-    t.integer "required_role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.bigint "required_role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "checkout_icalendar_token"
     t.boolean "save_checkout_history", default: false, null: false
     t.datetime "expired_at"
@@ -1183,8 +1182,8 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.text "full_name_transcription"
     t.datetime "date_of_birth"
     t.index ["checkout_icalendar_token"], name: "index_profiles_on_checkout_icalendar_token", unique: true
-    t.index ["user_id"], name: "index_profiles_on_user_id"
-    t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
+    t.index ["library_id"], name: "index_profiles_on_library_id"
+    t.index ["user_group_id"], name: "index_profiles_on_user_group_id"
   end
 
   create_table "purchase_requests", force: :cascade do |t|
@@ -1373,14 +1372,14 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.index ["resource_import_file_id"], name: "index_resource_import_results_on_resource_import_file_id"
   end
 
-  create_table "roles", id: :serial, force: :cascade do |t|
+  create_table "roles", force: :cascade do |t|
     t.string "name", null: false
-    t.string "display_name"
+    t.jsonb "display_name", default: {}, null: false
     t.text "note"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer "score", default: 0, null: false
     t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "search_engines", force: :cascade do |t|
@@ -1658,11 +1657,11 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.integer "number_of_time_to_notify_overdue", default: 3, null: false
   end
 
-  create_table "user_has_roles", id: :serial, force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+  create_table "user_has_roles", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "role_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["role_id"], name: "index_user_has_roles_on_role_id"
     t.index ["user_id"], name: "index_user_has_roles_on_user_id"
   end
@@ -1754,14 +1753,15 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
     t.string "checkout_icalendar_token"
     t.boolean "save_search_history", default: false, null: false
     t.string "username"
-    t.datetime "deleted_at"
     t.datetime "expired_at"
     t.integer "failed_attempts", default: 0
     t.string "unlock_token"
     t.datetime "locked_at"
     t.datetime "confirmed_at"
+    t.bigint "profile_id"
     t.index ["checkout_icalendar_token"], name: "index_users_on_checkout_icalendar_token", unique: true
     t.index ["email"], name: "index_users_on_email"
+    t.index ["profile_id"], name: "index_users_on_profile_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -1864,5 +1864,8 @@ ActiveRecord::Schema.define(version: 2019_01_02_034126) do
   add_foreign_key "user_checkout_stats", "users"
   add_foreign_key "user_group_has_checkout_types", "checkout_types"
   add_foreign_key "user_group_has_checkout_types", "user_groups"
+  add_foreign_key "user_has_roles", "roles"
+  add_foreign_key "user_has_roles", "users"
   add_foreign_key "user_reserve_stats", "users"
+  add_foreign_key "users", "profiles", on_delete: :cascade
 end
