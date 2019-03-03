@@ -18,9 +18,10 @@ gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
 gem "enju_bookmark", github: "next-l/enju_bookmark"
 gem "jquery-rails"
 gem "jquery-ui-rails", "~> 4.2"
-gem "rails-controller-testing"
-gem 'mobility'
-gem 'rspec_junit_formatter'
+gem 'json_translate'
+gem 'sassc-rails'
+gem "rails-controller-testing", group: :test
+gem 'rspec_junit_formatter', group: :test
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]

@@ -10,9 +10,9 @@ end
 #
 #  id            :bigint(8)        not null, primary key
 #  to_state      :string
-#  metadata      :text             default({})
+#  metadata      :jsonb
 #  sort_key      :integer
-#  order_list_id :integer
+#  order_list_id :bigint(8)
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  most_recent   :boolean

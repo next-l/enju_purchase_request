@@ -84,8 +84,8 @@ bookstore_00007:
 #
 # Table name: bookstores
 #
-#  id               :integer          not null, primary key
-#  name             :text             not null
+#  id               :integer         not null, primary key
+#  name             :text            not null
 #  zip_code         :string(255)
 #  address          :text
 #  note             :text
@@ -93,7 +93,7 @@ bookstore_00007:
 #  fax_number       :string(255)
 #  url              :string(255)
 #  position         :integer
-#  created_at       :datetime         not null
-#  updated_at       :datetime         not null
+#  created_at       :datetime
+#  updated_at       :datetime
 #
 
