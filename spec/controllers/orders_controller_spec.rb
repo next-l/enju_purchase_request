@@ -108,19 +108,19 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
         assigns(:order).should_not be_valid
-        response.should be_success
+        response.should be_successful
       end
 
       it 'should redirect to assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
         assigns(:order).should_not be_valid
-        response.should be_success
+        response.should be_successful
       end
 
       it 'assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
         assigns(:order).should_not be_valid
-        response.should be_success
+        response.should be_successful
       end
     end
 
@@ -132,7 +132,7 @@ describe OrdersController do
       it 'assigns the requested order as @order' do
         get :new, params: { order_list_id: 1, purchase_request_id: 1 }
         assigns(:order).should_not be_valid
-        response.should be_success
+        response.should be_successful
       end
     end
 

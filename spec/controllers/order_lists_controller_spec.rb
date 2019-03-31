@@ -102,7 +102,7 @@ describe OrderListsController do
       it 'assigns the requested order_list as @order_list' do
         get :new
         assigns(:order_list).should be_nil
-        response.should be_success
+        response.should be_successful
       end
     end
 
@@ -114,7 +114,7 @@ describe OrderListsController do
       it 'assigns the requested order_list as @order_list' do
         get :new
         assigns(:order_list).should be_nil
-        response.should be_success
+        response.should be_successful
       end
     end
 
