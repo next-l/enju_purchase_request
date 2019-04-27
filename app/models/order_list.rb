@@ -54,9 +54,9 @@ end
 #
 # Table name: order_lists
 #
-#  id           :bigint(8)        not null, primary key
-#  user_id      :bigint(8)        not null
-#  bookstore_id :bigint(8)        not null
+#  id           :bigint           not null, primary key
+#  user_id      :bigint           not null
+#  bookstore_id :bigint           not null
 #  title        :text             not null
 #  note         :text
 #  ordered_at   :datetime

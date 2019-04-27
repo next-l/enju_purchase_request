@@ -9,8 +9,8 @@ end
 #
 # Table name: purchase_requests
 #
-#  id                  :bigint(8)        not null, primary key
-#  user_id             :bigint(8)
+#  id                  :bigint           not null, primary key
+#  user_id             :bigint
 #  title               :text             not null
 #  author              :text
 #  publisher           :text

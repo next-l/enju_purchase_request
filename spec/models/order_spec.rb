@@ -9,9 +9,9 @@ end
 #
 # Table name: orders
 #
-#  id                  :bigint(8)        not null, primary key
-#  order_list_id       :bigint(8)        not null
-#  purchase_request_id :bigint(8)        not null
+#  id                  :bigint           not null, primary key
+#  order_list_id       :bigint           not null
+#  purchase_request_id :bigint           not null
 #  position            :integer
 #  state               :string
 #  created_at          :datetime         not null
