@@ -10,6 +10,7 @@ purchase_request_00001:
     44Gq44KT44Go44GL44GL44KT44Go44GL
 
   price: 
+  deleted_at: 
   author: !binary |
     44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
 
@@ -29,6 +30,7 @@ purchase_request_00002:
     44G744GS44G744GS
 
   price: 
+  deleted_at: 
   author: !binary |
     44Gq44KT44Go44GL
 
@@ -50,6 +52,7 @@ purchase_request_00003:
   denied_at: 
   title: "test1"
   price: 
+  deleted_at: 
   author: !binary |
     44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
 
@@ -69,6 +72,7 @@ purchase_request_00004:
   denied_at: 
   title: "test2"
   price: 
+  deleted_at: 
   author: !binary |
     44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
 
@@ -88,6 +92,7 @@ purchase_request_00005:
   denied_at: 
   title: "test3"
   price: 
+  deleted_at: 
   author: !binary |
     44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
 
@@ -107,6 +112,7 @@ purchase_request_00006:
   denied_at: 
   title: "test4"
   price: 1000
+  deleted_at: 
   author: !binary |
     44Gq44KT44Gf44KJ44GL44KT44Gf44KJ
 
@@ -122,8 +128,8 @@ purchase_request_00006:
 #
 # Table name: purchase_requests
 #
-#  id                  :bigint           not null, primary key
-#  user_id             :bigint
+#  id                  :integer          not null, primary key
+#  user_id             :integer          not null
 #  title               :text             not null
 #  author              :text
 #  publisher           :text
@@ -134,8 +140,9 @@ purchase_request_00006:
 #  note                :text
 #  accepted_at         :datetime
 #  denied_at           :datetime
+#  created_at          :datetime
+#  updated_at          :datetime
+#  deleted_at          :datetime
 #  state               :string
 #  pub_date            :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
 #

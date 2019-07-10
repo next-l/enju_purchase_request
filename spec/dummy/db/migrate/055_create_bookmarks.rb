@@ -1,6 +1,6 @@
 class CreateBookmarks < ActiveRecord::Migration[5.2]
   def change
-    create_table :bookmarks, force: true do |t|
+    create_table :bookmarks do |t|
       t.references :user, foreign_key: true, null: false
       t.references :manifestation, foreign_key: true, null: false
       t.text :title

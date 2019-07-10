@@ -69,8 +69,8 @@ end
 #
 # Table name: purchase_requests
 #
-#  id                  :bigint           not null, primary key
-#  user_id             :bigint
+#  id                  :integer          not null, primary key
+#  user_id             :integer          not null
 #  title               :text             not null
 #  author              :text
 #  publisher           :text
@@ -81,8 +81,9 @@ end
 #  note                :text
 #  accepted_at         :datetime
 #  denied_at           :datetime
+#  created_at          :datetime
+#  updated_at          :datetime
+#  deleted_at          :datetime
 #  state               :string
 #  pub_date            :string
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
 #

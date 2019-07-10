@@ -20,8 +20,12 @@ gem "jquery-rails"
 gem "jquery-ui-rails", "~> 4.2"
 gem 'json_translate'
 gem 'sassc-rails'
-gem "rails-controller-testing", group: :test
-gem 'rspec_junit_formatter', group: :test
+gem 'paper_trail'
+group :test do
+  gem 'coveralls'
+  gem 'rails-controller-testing'
+  gem 'rspec_junit_formatter'
+end
 
 # To use a debugger
 # gem 'byebug', group: [:development, :test]

@@ -1,4 +1,5 @@
 class OrderListTransition < ActiveRecord::Base
+  include Statesman::Adapters::ActiveRecordTransition
 
   
   belongs_to :order_list, inverse_of: :order_list_transitions
@@ -8,12 +9,12 @@ end
 #
 # Table name: order_list_transitions
 #
-#  id            :bigint           not null, primary key
+#  id            :integer          not null, primary key
 #  to_state      :string
-#  metadata      :jsonb
+#  metadata      :text             default({})
 #  sort_key      :integer
-#  order_list_id :bigint
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  most_recent   :boolean
+#  order_list_id :integer
+#  created_at    :datetime
+#  updated_at    :datetime
+#  most_recent   :boolean          not null
 #

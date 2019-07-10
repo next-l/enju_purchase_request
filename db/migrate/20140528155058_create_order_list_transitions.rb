@@ -1,13 +1,14 @@
-class CreateOrderListTransitions < ActiveRecord::Migration[5.2]
+class CreateOrderListTransitions < ActiveRecord::Migration[4.2]
   def change
     create_table :order_list_transitions do |t|
       t.string :to_state
-      t.jsonb :metadata, default: {}
+      t.text :metadata, default: "{}"
       t.integer :sort_key
-      t.references :order_list
+      t.integer :order_list_id
       t.timestamps
     end
 
+    add_index :order_list_transitions, :order_list_id
     add_index :order_list_transitions, [:sort_key, :order_list_id], unique: true
   end
 end

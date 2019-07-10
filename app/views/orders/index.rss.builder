@@ -4,12 +4,12 @@ xml.rss('version' => "2.0",
   'xmlns:atom' => "http://www.w3.org/2005/Atom"){
   xml.channel{
     if @user
-      xml.title "#{@user.username}'s orders at #{@library_group.display_name}"
+      xml.title "#{@user.username}'s orders at #{@library_group.display_name.localize}"
       xml.link user_orders_url(@user)
       xml.tag! "atom:link", rel: 'self', href: user_orders_url(@user, format: :rss)
       xml.tag! "atom:link", rel: 'alternate', href: user_orders_url(@user)
     else
-      xml.title "Orders at #{@library_group.display_name}"
+      xml.title "Orders at #{@library_group.display_name.localize}"
       xml.link orders_url
       xml.tag! "atom:link", rel: 'self', href: orders_url(format: :rss)
       xml.tag! "atom:link", rel: 'alternate', href: orders_url
