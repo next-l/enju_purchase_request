@@ -18,11 +18,9 @@ gem "enju_manifestation_viewer", github: "next-l/enju_manifestation_viewer"
 gem "enju_bookmark", github: "next-l/enju_bookmark"
 gem "jquery-rails"
 gem "jquery-ui-rails", "~> 4.2"
-gem 'json_translate'
 gem 'sassc-rails'
 gem 'paper_trail'
 group :test do
-  gem 'coveralls'
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'
 end
