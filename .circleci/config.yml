@@ -3,13 +3,13 @@ jobs:
   build:
     working_directory: ~/enju_purchase_request
     docker:
-      - image: circleci/ruby:2.5
+      - image: circleci/ruby:2.5-stretch
         environment:
           BUNDLE_JOBS: 3
           BUNDLE_PATH: vendor/bundle
           PGHOST: 127.0.0.1
           PGUSER: postgres
-      - image: circleci/postgres:9.6-alpine
+      - image: circleci/postgres:10
         environment:
           POSTGRES_USER: postgres
           POSTGRES_DB: enju_purchase_request_dummy_test
