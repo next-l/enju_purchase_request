@@ -1,5 +1,8 @@
 class OrderList < ActiveRecord::Base
-  include Statesman::Adapters::ActiveRecordQueries
+  include Statesman::Adapters::ActiveRecordQueries[
+    transition_class: UserImportFileTransition,
+    initial_state: :pending
+  ]
   scope :not_ordered, -> {in_state(:not_ordered)}
 
   has_many :orders, dependent: :destroy
@@ -38,15 +41,6 @@ class OrderList < ActiveRecord::Base
 
   def ordered?
     true if current_state == 'ordered'
-  end
-
-  private
-  def self.transition_class
-    OrderListTransition
-  end
-
-  def self.initial_state
-    :pending
   end
 end
 
