@@ -1,6 +1,6 @@
 class OrderList < ActiveRecord::Base
   include Statesman::Adapters::ActiveRecordQueries[
-    transition_class: UserImportFileTransition,
+    transition_class: OrderListTransition,
     initial_state: :pending
   ]
   scope :not_ordered, -> {in_state(:not_ordered)}

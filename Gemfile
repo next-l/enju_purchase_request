@@ -20,6 +20,7 @@ gem "jquery-rails"
 gem "jquery-ui-rails", "~> 4.2"
 gem 'sassc-rails'
 gem 'rails', '~> 5.2'
+gem 'sprockets', '~> 3.7'
 group :test do
   gem 'rails-controller-testing'
   gem 'rspec_junit_formatter'

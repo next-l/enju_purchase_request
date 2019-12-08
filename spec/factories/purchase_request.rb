@@ -1,6 +1,6 @@
 FactoryBot.define do
-  factory :purchase_request do |f|
-    f.sequence(:title){|n| "purchase_request_#{n}"}
-    f.user_id{FactoryBot.create(:user).id}
+  factory :purchase_request do
+    sequence(:title){|n| "purchase_request_#{n}"}
+    association :user, factory: :user
   end
 end

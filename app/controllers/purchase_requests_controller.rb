@@ -117,7 +117,7 @@ class PurchaseRequestsController < ApplicationController
   # PUT /purchase_requests/1.json
   def update
     respond_to do |format|
-      if @purchase_request.update_attributes(purchase_request_params)
+      if @purchase_request.update(purchase_request_params)
         @order_list.purchase_requests << @purchase_request if @order_list
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.purchase_request'))
         format.html { redirect_to(@purchase_request) }
