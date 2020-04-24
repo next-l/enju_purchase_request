@@ -2,17 +2,18 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# Note that this schema.rb definition is the authoritative source for your
-# database schema. If you need to create the application database on another
-# system, you should be using db:schema:load, not running all the migrations
-# from scratch. The latter is a flawed and unsustainable approach (the more migrations
-# you'll amass, the slower it'll run and the greater likelihood for issues).
+# This file is the source Rails uses to define your schema when running `rails
+# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# be faster and is potentially less error prone than running all of your
+# migrations from scratch. Old migrations may fail to apply correctly if those
+# migrations use external dependencies or application code.
 #
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema.define(version: 2019_11_19_105435) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pgcrypto"
   enable_extension "plpgsql"
 
   create_table "accepts", force: :cascade do |t|
@@ -649,26 +650,25 @@ ActiveRecord::Schema.define(version: 2019_11_19_105435) do
     t.index ["sort_key", "order_list_id"], name: "index_order_list_transitions_on_sort_key_and_order_list_id", unique: true
   end
 
-  create_table "order_lists", id: :serial, force: :cascade do |t|
-    t.integer "user_id", null: false
-    t.integer "bookstore_id", null: false
+  create_table "order_lists", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "bookstore_id", null: false
     t.text "title", null: false
     t.text "note"
     t.datetime "ordered_at"
-    t.datetime "deleted_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["bookstore_id"], name: "index_order_lists_on_bookstore_id"
     t.index ["user_id"], name: "index_order_lists_on_user_id"
   end
 
-  create_table "orders", id: :serial, force: :cascade do |t|
-    t.integer "order_list_id", null: false
-    t.integer "purchase_request_id", null: false
+  create_table "orders", force: :cascade do |t|
+    t.bigint "order_list_id", null: false
+    t.bigint "purchase_request_id", null: false
     t.integer "position"
     t.string "state"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["order_list_id"], name: "index_orders_on_order_list_id"
     t.index ["purchase_request_id"], name: "index_orders_on_purchase_request_id"
   end
@@ -766,8 +766,8 @@ ActiveRecord::Schema.define(version: 2019_11_19_105435) do
     t.index ["user_number"], name: "index_profiles_on_user_number", unique: true
   end
 
-  create_table "purchase_requests", id: :serial, force: :cascade do |t|
-    t.integer "user_id", null: false
+  create_table "purchase_requests", force: :cascade do |t|
+    t.bigint "user_id", null: false
     t.text "title", null: false
     t.text "author"
     t.text "publisher"
@@ -778,11 +778,10 @@ ActiveRecord::Schema.define(version: 2019_11_19_105435) do
     t.text "note"
     t.datetime "accepted_at"
     t.datetime "denied_at"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.datetime "deleted_at"
     t.string "state"
     t.string "pub_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["state"], name: "index_purchase_requests_on_state"
     t.index ["user_id"], name: "index_purchase_requests_on_user_id"
   end
@@ -1155,12 +1154,17 @@ ActiveRecord::Schema.define(version: 2019_11_19_105435) do
   add_foreign_key "items", "manifestations"
   add_foreign_key "libraries", "library_groups"
   add_foreign_key "library_groups", "users"
+  add_foreign_key "order_lists", "bookstores"
+  add_foreign_key "order_lists", "users"
+  add_foreign_key "orders", "order_lists"
+  add_foreign_key "orders", "purchase_requests"
   add_foreign_key "periodical_and_manifestations", "manifestations"
   add_foreign_key "periodical_and_manifestations", "periodicals"
   add_foreign_key "periodicals", "frequencies"
   add_foreign_key "profiles", "libraries"
   add_foreign_key "profiles", "user_groups"
   add_foreign_key "profiles", "users"
+  add_foreign_key "purchase_requests", "users"
   add_foreign_key "resource_import_files", "users"
   add_foreign_key "subscriptions", "users"
   add_foreign_key "user_export_files", "users"

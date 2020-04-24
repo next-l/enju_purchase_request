@@ -84,11 +84,6 @@ class PurchaseRequestsController < ApplicationController
     if defined?(EnjuBookmark)
       @purchase_request.title = Bookmark.get_title_from_url(@purchase_request.url) unless @purchase_request.title?
     end
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @purchase_request }
-    end
   end
 
   # GET /purchase_requests/1/edit
