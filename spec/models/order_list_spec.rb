@@ -15,13 +15,13 @@ end
 #
 # Table name: order_lists
 #
-#  id           :integer          not null, primary key
-#  user_id      :integer          not null
-#  bookstore_id :integer          not null
+#  id           :bigint           not null, primary key
+#  user_id      :bigint           not null
+#  bookstore_id :bigint           not null
 #  title        :text             not null
 #  note         :text
 #  ordered_at   :datetime
 #  deleted_at   :datetime
-#  created_at   :datetime
-#  updated_at   :datetime
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #

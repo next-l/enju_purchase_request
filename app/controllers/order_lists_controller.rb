@@ -33,10 +33,7 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new
   # GET /order_lists/new.json
   def new
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @order_list }
-    end
+    @order_list = OrderList.new
   end
 
   # GET /order_lists/1/edit
@@ -69,7 +66,7 @@ class OrderListsController < ApplicationController
   def update
 
     respond_to do |format|
-      if @order_list.update_attributes(order_list_params)
+      if @order_list.update(order_list_params)
         if @order_list.edit_mode == 'order'
           @order_list.transition_to(:ordered)
           @order_list.save(validate: false)

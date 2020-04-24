@@ -51,11 +51,6 @@ class OrdersController < ApplicationController
       return
     end
     @order = Order.new(params[:order])
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @order }
-    end
   end
 
   # GET /orders/1/edit
@@ -93,7 +88,7 @@ class OrdersController < ApplicationController
     @order = Order.find(params[:id])
 
     respond_to do |format|
-      if @order.update_attributes(order_params)
+      if @order.update(order_params)
         flash[:notice] = t('controller.successfully_updated', model: t('activerecord.models.order'))
         if @purchase_request
           format.html { redirect_to purchase_request_order_url(@order.purchase_request, @order) }
