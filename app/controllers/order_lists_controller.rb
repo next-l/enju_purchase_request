@@ -33,6 +33,7 @@ class OrderListsController < ApplicationController
   # GET /order_lists/new
   # GET /order_lists/new.json
   def new
+    @order_list = OrderList.new
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @order_list }
