@@ -41,7 +41,7 @@ jobs:
           paths:
             - ./vendor/bundle
           key: v1-dependencies-{{ checksum "Gemfile.lock" }}
-        
+
       # Security scan
       - run: bundle exec brakeman
 
