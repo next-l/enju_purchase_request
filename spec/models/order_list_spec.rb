@@ -21,7 +21,6 @@ end
 #  title        :text             not null
 #  note         :text
 #  ordered_at   :datetime
-#  deleted_at   :datetime
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
