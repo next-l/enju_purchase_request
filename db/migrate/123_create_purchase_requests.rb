@@ -12,8 +12,6 @@ class CreatePurchaseRequests < ActiveRecord::Migration[4.2]
       t.text :note
       t.datetime :accepted_at
       t.datetime :denied_at
-      t.datetime :created_at
-      t.datetime :updated_at
       t.datetime :deleted_at
       t.string :state
       t.string :pub_date
