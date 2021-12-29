@@ -10,7 +10,7 @@ class PurchaseRequestsController < ApplicationController
   # GET /purchase_requests.json
   def index
     @count = {}
-    if params[:format] == 'txt'
+    if request.format.text?
       per_page = 65534
     else
       per_page = PurchaseRequest.default_per_page
@@ -64,7 +64,7 @@ class PurchaseRequestsController < ApplicationController
       format.json { render json: @purchase_requests }
       format.rss  { render layout: false }
       format.atom
-      format.txt
+      format.text
     end
   end
 
