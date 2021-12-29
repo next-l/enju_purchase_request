@@ -21,7 +21,7 @@ class OrdersController < ApplicationController
       format.json { render json: @orders }
       format.rss
       format.atom
-      format.txt
+      format.text
     end
   end
 
